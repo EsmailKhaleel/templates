@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stats & Skills Section</title>
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f4f4;
+            text-align: center;
+        }
+
+        .section {
+            padding: 60px 10%;
+            background: white;
+        }
+
+        /* Stats Section */
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+
+        .stat-box {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-in-out;
+            width: 200px;
+        }
+
+        .stat-box i {
+            font-size: 40px;
+            color: #149DDD;
+            margin-bottom: 10px;
+        }
+
+        .stat-number {
+            font-size: 35px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .stat-title {
+            font-size: 16px;
+            color: #666;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        .skill {
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-in-out;
+        }
+
+        .skill-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .skill-bar {
+            width: 100%;
+            height: 8px;
+            background: #ddd;
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-fill {
+            height: 100%;
+            width: 0;
+            background: #149DDD;
+            border-radius: 5px;
+            transition: width 1s ease-in-out;
+        }
+
+        /* Fade-in effect when active */
+        .active {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+    </style>
+</head>
+<body>
+    <pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </pre>
+    <!-- Stats Section -->
+    <section class="section">
+        <div class="stats-container">
+
+            <div class="stat-box">
+                <i class="fas fa-face-smile"></i>
+                <div class="stat-number" data-target="232">0</div>
+                <div class="stat-title">Happy Clients</div>
+            </div>
+
+            <div class="stat-box">
+                <i class="fas fa-briefcase"></i>
+                <div class="stat-number" data-target="521">0</div>
+                <div class="stat-title">Projects Completed</div>
+            </div>
+
+            <div class="stat-box">
+                <i class="fas fa-headset"></i>
+                <div class="stat-number" data-target="1453">0</div>
+                <div class="stat-title">Hours of Support</div>
+            </div>
+
+            <div class="stat-box">
+                <i class="fas fa-users"></i>
+                <div class="stat-number" data-target="32">0</div>
+                <div class="stat-title">Hard Workers</div>
+            </div>
+
+        </div>
+
+        <!-- Skills Section -->
+        <h2>Skills</h2>
+
+        <div class="skills-container">
+
+            <div class="skill">
+                <div class="skill-name">HTML <span class="skill-percent">100%</span></div>
+                <div class="skill-bar">
+                    <div class="skill-fill" data-width="100%"></div>
+                </div>
+            </div>
+
+            <div class="skill">
+                <div class="skill-name">CSS <span class="skill-percent">90%</span></div>
+                <div class="skill-bar">
+                    <div class="skill-fill" data-width="90%"></div>
+                </div>
+            </div>
+
+            <div class="skill">
+                <div class="skill-name">JavaScript <span class="skill-percent">75%</span></div>
+                <div class="skill-bar">
+                    <div class="skill-fill" data-width="75%"></div>
+                </div>
+            </div>
+
+            <div class="skill">
+                <div class="skill-name">React <span class="skill-percent">80%</span></div>
+                <div class="skill-bar">
+                    <div class="skill-fill" data-width="80%"></div>
+                </div>
+            </div>
+
+            <div class="skill">
+                <div class="skill-name">React-Native <span class="skill-percent">90%</span></div>
+                <div class="skill-bar">
+                    <div class="skill-fill" data-width="90%"></div>
+                </div>
+            </div>
+
+            <div class="skill">
+                <div class="skill-name">Sass <span class="skill-percent">55%</span></div>
+                <div class="skill-bar">
+                    <div class="skill-fill" data-width="55%"></div>
+                </div>
+            </div>
+            
+        </div>
+        <pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </pre>
+    </section>
+
+    <script>
+        // Counter Animation
+        function startCounter(statBox) {
+            const numberElement = statBox.querySelector(".stat-number");
+            const target = +numberElement.getAttribute("data-target"); // + to be number
+            let count = 0;
+            const increment = target / 100; // Adjust speed
+
+            const updateCount = setInterval(() => {
+                count += increment;
+                if (count >= target) {
+                    numberElement.textContent = target;
+                    clearInterval(updateCount);
+                } else {
+                    numberElement.textContent = Math.floor(count);
+                }
+            }, 20);
+        }
+
+        // Animate elements when they enter the viewport
+        function revealOnScroll() {
+            const statBoxes = document.querySelectorAll(".stat-box");
+            const skills = document.querySelectorAll(".skill");
+            const skillFills = document.querySelectorAll(".skill-fill");
+
+            const triggerBottom = window.innerHeight * 0.95;
+
+            statBoxes.forEach((statBox) => {
+                const boxTop = statBox.getBoundingClientRect().top;
+                if (boxTop < triggerBottom && !statBox.classList.contains("active")) {
+                    statBox.classList.add("active");
+                    startCounter(statBox);
+                }
+            });
+
+            skills.forEach((skill, index) => {
+                const skillTop = skill.getBoundingClientRect().top;
+                if (skillTop < triggerBottom && !skill.classList.contains("active")) {
+                    skill.classList.add("active");
+
+                    // Animate skill bars
+                    setTimeout(() => {
+                        skillFills[index].style.width = skillFills[index].getAttribute("data-width");
+                    }, 300);
+                }
+            });
+        }
+
+        window.addEventListener("scroll", revealOnScroll);
+        revealOnScroll(); // Initial check in case section is already visible
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+/* line 4, ../sass/lab.scss */
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* line 9, ../sass/lab.scss */
+.navbar {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 10px;
+}
+
+/* line 21, ../sass/lab.scss */
+.nav-li {
+  border: 2px solid white;
+  background: #C2CFE1;
+  border-radius: 20px 0 20px 0;
+}
+
+@media screen and (max-width: 576px) {
+  /* line 28, ../sass/lab.scss */
+  .navbar {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  /* line 33, ../sass/lab.scss */
+  .nav-li {
+    width: 100%;
+    border-radius: 0 20px 0 20px;
+  }
+}
+/* line 39, ../sass/lab.scss */
+.image {
+  max-width: 100%;
+  /* Prevent the image from exceeding the width of the container */
+  height: auto;
+  object-fit: cover;
+}
+
+/* line 46, ../sass/lab.scss */
+.mainsection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: stretch;
+}
+
+/* line 52, ../sass/lab.scss */
+.card {
+  display: flex;
+  gap: 20px;
+  width: 50%;
+  justify-content: space-between;
+}
+
+/* line 59, ../sass/lab.scss */
+.img-border {
+  border: 2px solid gray;
+}
+
+@media screen and (max-width: 768px) {
+  /* line 65, ../sass/lab.scss */
+  .card {
+    flex-direction: column-reverse;
+    width: 25%;
+  }
+
+  /* line 70, ../sass/lab.scss */
+  .img-border {
+    border: none;
+  }
+}
+@media screen and (max-width: 576px) {
+  /* line 77, ../sass/lab.scss */
+  .card {
+    flex-direction: row;
+    width: 100%;
+  }
+
+  /* line 82, ../sass/lab.scss */
+  .img-border {
+    border: none;
+  }
+}
+/* line 88, ../sass/lab.scss */
+.bg-primary {
+  background: #5D7CAB;
+}
+
+/* line 92, ../sass/lab.scss */
+.txt-center {
+  text-align: center;
+}
+
+/* line 96, ../sass/lab.scss */
+.footerborder {
+  border-radius: 20px 0 20px 0;
+}
+/* not in .scss file */
+body{
+  background-image: url('images/bg.png');
+}

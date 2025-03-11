@@ -1,0 +1,228 @@
+body{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+nav {
+    background: #4A4E69; 
+    padding: 1rem 2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+ul {
+    display: flex;
+    min-height: 10vh;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+ul > li {
+    list-style: none;
+}
+ul > li > a {
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #F2E9E4;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+}
+ul > li > a:hover {
+    background: #C9ADA7;
+    color: #22223B; 
+    box-shadow: 0 4px 8px rgba(201, 173, 167, 0.5);
+    cursor: pointer;
+}
+ul > li > a:active {
+    background: #E0AFA0;
+
+}
+
+@media all and (max-width: 768px) {
+    ul {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    ul > li > a {
+        display: block;
+        text-align: center;
+        width: 100%;
+    }
+}
+.cover {
+    background-image: url(images1/laptop_top.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.cover>h4 {
+    font-size: 2rem;
+    margin: 1rem;
+}
+
+.cover>button {
+    outline: none;
+    border: 1px solid white;
+    color: white;
+    padding: 1rem 1.2rem;
+    margin: 2rem;
+    border-radius: 0.4rem;
+    font-weight: bold;
+    background-color: transparent;
+}
+.cover>button:hover {
+    background-image: linear-gradient(to right, rgb(255, 140, 0), rgb(255, 81, 0));
+}
+p {
+    text-align: center;
+}
+/* activity section */
+#actHeader {
+    font: bold 2rem tahoma;
+
+}
+hr {
+    width: 25vw;
+    text-align: center;
+    margin: 2rem 0;
+}
+.actHeaderSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5rem;
+}
+#activities{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+}
+.activity{
+    margin: 0 2rem;
+}
+.activityimage{
+    width: 100%;
+    height: auto;
+    position: relative;
+    bottom: -60px;
+}
+    .activityimage:hover {
+        transform: translateY(-60px);
+    }
+
+    .socialfooter:hover {
+        opacity: 1;
+    }
+
+    .imagecontainer:hover .activityimage {
+        transform: translateY(-60px);
+    }
+
+    .imagecontainer:hover .socialfooter {
+        opacity: 1;
+    }
+
+.socialfooter{
+    background-color: lightcoral;
+    height: 60px;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    bottom: 0.3rem;
+    opacity: 0;
+}
+.socialfooter>i{
+    border: 1px solid white;
+    padding: 1rem;
+    border-radius: 2rem;
+}
+    .socialfooter>i:hover{
+        color: lightcoral;
+        background: white;
+    }
+/****************************************************/
+#slider{
+    height: 40vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    margin:10rem 0;
+
+}
+#slider>div>img{
+    width: 25vw;
+    height: 40vh;
+    opacity: 0.5;
+}
+    #slider>div>img:hover,
+    #slider>div>img:hover + .sliderparagraph{
+        opacity: 1;
+    }
+.sliderparagraph{
+    padding: 10px;
+    margin: 0;
+    opacity: 0;
+}
+#locationheader {
+    text-align: center;
+    color: red;
+    font: bold 3rem "Gabriola";
+    margin: 0;
+}
+#locationsection{
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+.location{
+    height: 10vh;
+    background-color: rgba(211, 211, 211, 0.284);
+    padding:5px 0 0 5px ;
+    color: rgb(32, 21, 132);
+}
+.location:hover{
+    color: rgb(151, 41, 41);
+    cursor: pointer;
+}
+.citylocation{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+#map{
+    width: 100%;
+    height: auto;
+    margin-top: 2rem;
+}
+#mainbranchicon{
+    background-color:rgb(151, 41, 41) ;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+}
+#branchicon{
+    background-color:rgb(32, 21, 132) ;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+}
+#mapkey{
+    display: flex;
+    justify-content: flex-start;
+    gap: 5px;
+}

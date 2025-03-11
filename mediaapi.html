@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        section {
+            border: 1px solid black;
+            padding: 5px;
+        }
+
+        #mainwrapper {
+            width: 90vw;
+            height: 80vh;
+            margin: 10px auto;
+            display: flex;
+        }
+
+            #mainwrapper > section {
+                width: 200px;
+                margin: 20px;
+            }
+
+        #videowrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        details {
+            padding: 5px;
+            margin: 5px 0;
+            font-weight: bold;
+        }
+
+            details:nth-child(odd) {
+                background-color: lightyellow;
+            }
+
+            details:nth-child(even) {
+                background-color: lightblue;
+            }
+
+        input[type=button] {
+            width: 70px;
+        }
+
+            input[type=button]:focus {
+                font-weight: bold;
+                background-color: lightpink;
+            }
+
+        summary {
+            margin-bottom: 5px;
+        }
+    </style>
+    <script>
+        window.addEventListener('load', function () {
+            myvideo = document.getElementById('myvideo');
+            const seekbar = document.querySelector('#seekbar');
+
+            // to prevent default browser if auto-display captions
+            for (let i = 0; i < myvideo.textTracks.length; i++) {
+                myvideo.textTracks[i].mode = "hidden";
+            }
+            
+            myvideo.addEventListener('timeupdate', function () {
+            const progress = (myvideo.currentTime / myvideo.duration) * 100;
+            seekbar.value = progress;
+            });
+        });//end of load
+        function playpausefun(e) {
+            if (myvideo.paused) {
+                myvideo.play();
+                e.target.value = "Pause";
+                console.log(e);
+            } else {
+                myvideo.pause();
+                e.target.value = "Play";
+            }
+        }
+        function changemediasize(e) {
+            switch (e.target.value) {
+                case "small":
+                    myvideo.width = myvideo.height = 400;
+                    break;
+                case "medium":
+                    myvideo.width = myvideo.height = 500;
+                    break;
+                case "large":
+                    myvideo.width = myvideo.height = 600;
+                    break;
+                case "fullscreen":
+                    myvideo.requestFullscreen();
+                    break;
+            }
+        }
+        function changevolume(e) {
+            myvideo.volume = e.target.value;
+        }
+        function mutefun() {
+            //if (myvideo.muted) {
+            //    myvideo.muted = false;
+            //} else {
+            //    myvideo.muted = true;
+            //}
+            myvideo.muted ^= true;
+        }
+        function loopfun() {
+            //if (myvideo.loop) {
+            //    myvideo.loop = false;
+            //} else {
+            //    myvideo.loop = true;
+            //}
+            myvideo.loop ^= true;
+        }
+        function changeseekbarfun(e) {
+            myvideo.currentTime = e.target.value * myvideo.duration / 100;
+        }
+        function forwardfun() {
+            myvideo.playbackRate++;
+            console.log(myvideo.playbackRate);
+        }
+        function backwordfun() {
+            myvideo.playbackRate -= 0.1;
+            if (myvideo.playbackRate <= 0.2) {
+                myvideo.playbackRate = 0.1;
+            }
+            // console.log(myvideo.playbackRate);
+        }
+        function changecaptions(e){
+            // console.log(e.target.value);
+            switch(e.target.value){
+                case "english":
+                    myvideo.textTracks[0].mode = "showing";
+                    break;
+                case "duetsch":
+                    myvideo.textTracks[1].mode = "showing";
+                    break;
+                case "espaneol":
+                    myvideo.textTracks[2].mode = "showing";
+                    break;
+            }
+        }
+    </script>    
+</head>
+<body>
+    <section id="mainwrapper">
+        <section id="controlswrapper">
+            <details>
+                <summary>Play | Pause</summary>
+                <input type="button" value="Play" onclick="playpausefun(event);" />
+            </details>
+            <details>
+                <summary>Media Size</summary>
+                <select onchange="changemediasize(event);">
+                    <option>Select Media Size</option>
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                    <option value="fullscreen">FullScreen</option>
+                </select>
+            </details>
+            <details>
+                <summary>Volume</summary>
+                <input type="range" min="0" max="1" step="0.1" value="0.8" onchange="changevolume(event);" />
+            </details>
+            <details>
+                <summary>Mute | Loop</summary>
+                <input type="checkbox" onchange="mutefun();" /> Mute <br />
+                <input type="checkbox" onchange="loopfun();" /> Loop<br />
+            </details>
+            <details>
+                <summary>SeekBar</summary>
+                <input type="range" min="0" max="100" value="0" step="any" onchange="changeseekbarfun(event);" id="seekbar"/>
+            </details>
+            <details>
+                <summary> >> | <<</summary>
+                <input type="button" value=">>" onclick="forwardfun();" />
+                <input type="button" value="<<" onclick="backwordfun();" />
+            </details>
+            <details>
+                <summary>&COPY;&COPY; Captions</summary>
+                <select onchange="changecaptions(event);">
+                    <option>Options</option>
+                    <option value="english">English</option>
+                    <option value="duetsch">Duetsch</option>
+                    <option value="espaneol">Espaneol</option>
+                </select>
+            </details>
+        </section>
+        <section id="videowrapper">
+            <!-- <video src="Video/universe.mp4"  id="myvideo" width="400" height="400"/> -->
+            <video id="myvideo" preload="metadata" width="100%" height="100%">
+                <source src="video/sintel-short.mp4" type="video/mp4">
+                <source src="video/sintel-short.webm" type="video/webm">
+                <track label="English" kind="subtitles" srclang="en" src="subtitles/vtt/sintel-en.vtt" default>
+                <track label="Deutsch" kind="subtitles" srclang="de" src="subtitles/vtt/sintel-de.vtt">
+                <track label="Español" kind="subtitles" srclang="es" src="subtitles/vtt/sintel-es.vtt">
+            </video>
+            <!-- <audio src="Audio/lifeforrent.mp3" id="myvideo" > -->
+        </section>
+    </section>
+</body>
+</html>

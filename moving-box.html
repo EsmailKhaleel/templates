@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 80vw;
+            height: 80vh;
+            margin: 30px auto;
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        #movingbox {
+            width: 20vw;
+            height: 20vh;
+            background-color: orange;
+            position: relative;
+            top: 0;
+            left: 0;
+            transition: transform 1s;
+        }
+        #movingbox:hover {
+            transform: scale(1.1);
+            border: 1px solid gray;
+        }
+        @keyframes movingbox {
+            25% {
+                top: 0;
+                left: 75%;
+                background-color: lightgreen;
+            }
+
+            50% {
+                top: 75%;
+                left: 75%;
+                background-color: lightblue;
+            }
+
+            75% {
+                top: 75%;
+                left: 0;
+                background-color: lightgoldenrodyellow;
+            }
+        }
+        #controlwrapper {
+            display: flex;
+            justify-content: center;
+            gap: 3vw;
+        }
+        input[type="button"] {
+            border: none;
+            width: 20vw;
+            height: 5vh;
+            background-color: cyan;
+            font: bold 1rem arial;
+            box-shadow: 5px 5px 5px gray;
+            transition: all 0.5s;
+        }
+        input[type="button"]:active,
+        input[type="button"]:focus {
+            box-shadow: none;
+            transform: translate(5px, 5px);
+        }
+    </style>
+</head>
+
+<body>
+    <section id="mainwrapper">
+        <section id="controlwrapper">
+            <input type="button" value="start" id="start">
+            <input type="button" value="stop" id="stop">
+            <input type="button" value="pause" id="pause">
+        </section>
+        <section id="box">
+            <div id="movingbox"></div>
+        </section>
+    </section>
+    <script>
+        let movingbox = document.getElementById('movingbox');
+        let start = document.getElementById('start');
+        let pause = document.getElementById('pause');
+        let stopBtn = document.getElementById('stop');
+        start.onclick = function () {
+            movingbox.style.animation = 'movingbox 4s';
+            movingbox.style["animation-iteration-count"] = 'infinite';
+        }
+        pause.onclick = function () {
+            movingbox.style["animation-play-state"] = 'paused';
+        }
+        stopBtn.onclick = function () {
+            movingbox.style.animation = 'none';
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">Some Designs</div>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+        <ul class="nav-links">
+            <li><a href="3dGallery.html">3D Gallery</a></li>
+            <li><a href="carousel.html">Carousel</a></li>
+            <li><a href="swiper.html">Swiper Js Template</a></li>
+            <li><a href="sass_template.html">Sass Template</a></li>
+            <li><a href="mediaapi.html">Video API Template</a></li>
+            <li><a href="moving-box.html">Moving Box</a></li>
+            <li><a href="portfolio.html">Porfolio Template</a></li>
+            <li><a href="flexdemo.html">Template</a></li>
+        </ul>
+    </nav>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('.nav-links').classList.toggle('show');
+        }
+    </script>
+    <div class="title">Welcome Esmail Khaleel</div>
+    <div class="spinner"></div>
+    <div class="progress"></div>
+    <div class="title">Hover The Cat</div>
+    <div class="gallery_wrapper">
+        <img src="./assets/img3.png"></img>
+        <img src="./assets/img3.png"></img>
+        <img src="./assets/img3.png"></img>
+        <img src="./assets/img3.png"></img>
+        <img src="./assets/img3.png"></img>
+    </div>
+    <!-- <input type="checkbox" class="on_off_btn"> -->
+    <!-- <div class="email_wrapper">
+        <input type="text" id="email" placeholder=" ">
+        <label for="email">Enter Your Email</label>
+    </div> -->
+    <div class="slider">
+        <div class="slide-track">
+            <div class="slide">
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/1.png" height="100" width="250" alt="" />
+            </div>
+            <div class="slide">
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/2.png" height="100" width="250" alt="" />
+            </div>
+            <div class="slide">
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/3.png" height="100" width="250" alt="" />
+            </div>
+            <div class="slide">
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/4.png" height="100" width="250" alt="" />
+            </div>
+            <div class="slide">
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/5.png" height="100" width="250" alt="" />
+            </div>
+            <div class="slide">
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/6.png" height="100" width="250" alt="" />
+            </div>
+            <div class="slide">
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/7.png" height="100" width="250" alt="" />
+            </div>
+            <div class="slide">
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/1.png" height="100" width="250" alt="" />
+            </div>
+            <div class="slide">
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/2.png" height="100" width="250" alt="" />
+            </div>
+            <div class="slide">
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/3.png" height="100" width="250" alt="" />
+            </div>
+            <div class="slide">
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/4.png" height="100" width="250" alt="" />
+            </div>
+            <div class="slide">
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/5.png" height="100" width="250" alt="" />
+            </div>
+            <div class="slide">
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/6.png" height="100" width="250" alt="" />
+            </div>
+            <div class="slide">
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/7.png" height="100" width="250" alt="" />
+            </div>
+        </div>
+    </div>
+    <div class="cards">
+        <div class="card">🟡💡 Some Cool Animation</div>
+        <div class="card">🪐🪇 Some Cool Animation</div>
+        <div class="card">🟡💡 Some Cool Animation</div>
+        <div class="card">🪐🪇 Some Cool Animation</div>
+        <div class="card">🟡💡 Some Cool Animation</div>
+        <div class="card">🪐🪇 Some Cool Animation</div>
+        <div class="card">🟡💡 Some Cool Animation</div>
+        <div class="card">🪐🪇 Some Cool Animation</div>
+        <div class="card">🟡💡 Some Cool Animation</div>
+        <div class="card">🪐🪇 Some Cool Animation</div>
+    </div>
+    <div class="myCarousel">
+        <button class="prev" id="prev"><</button>
+        <div class="carouselItem item1 show">
+            <img src="./assets/img1.jpg" alt="" style="width: 100%;">
+        </div>
+        <div class="carouselItem item2 hide">
+            <img src="./assets/img2.jpg" alt="" style="width: 100%;">
+        </div>
+        <div class="carouselItem item3 hide">
+            <img src="./assets/img3.png" alt="" style="width: 100%;">
+        </div>
+        <button class="next" id="next">></button>
+    </div>
+    <div style="text-align: center; margin: 10px;">
+        <div class="indicator active"></div>
+        <div class="indicator"></div>
+        <div class="indicator"></div>
+    </div>
+    <script>
+        let currentIndex = 0;
+        const items = document.querySelectorAll('.carouselItem');
+        const slider = document.getElementsByClassName('myCarousel');
+        const nextBtn = document.getElementById('next');
+        const indicators = document.querySelectorAll('.indicator'); 
+        function showSlide (index) {
+            items.forEach(item => item.classList.add('hide'));
+            items.forEach(item => item.classList.remove('show'));
+            items[index].classList.add('show');
+            items[index].classList.add('fade');
+            indicators.forEach(indicator => indicator.classList.remove('active'))
+            indicators[index].classList.add('active');
+        }
+        document.getElementById('next').onclick = () => {
+        currentIndex = (currentIndex + 1) % items.length; 
+        showSlide(currentIndex);
+        };
+        document.getElementById('prev').onclick = () => {
+            currentIndex = (currentIndex - 1 + items.length) % items.length;
+        showSlide(currentIndex);
+        };
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % items.length; 
+            showSlide(currentIndex);
+        },1000);
+        indicators[0].onclick = () =>  showSlide(0);
+        indicators[1].onclick = () =>  showSlide(1);
+        indicators[2].onclick = () =>  showSlide(2);
+    </script>
+</body>
+
+</html>
