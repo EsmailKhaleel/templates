@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
+    <div class="scroll_bar"></div>
     <div class="title">Explore my templates</div>
     <nav class="navbar">
         <button class="menu-btn" onclick="toggleMenu()">☰</button>
@@ -16,7 +17,7 @@
             <li><a href="flexdemo.html">Template 1</a></li>
             <li><a href="3dGallery.html">3D Gallery</a></li>
             <li><a href="portfolio.html">Porfolio Template</a></li>
-            <li><a href="sass_template.html">Sass Template</a></li>
+            <li><a href="sass_template.html">Sass Responsive Template</a></li>
             <li><a href="carousel.html">Carousel</a></li>
             <!-- <li><a href="swiper.html">Swiper Js Template</a></li> -->
             <li><a href="mediaapi.html">Video API Template</a></li>
@@ -91,6 +92,26 @@
             </div>
         </div>
     </div>
+    <div class="zoom">
+        <div class="myCarousel">
+            <button class="prev" id="prev"><</button>
+                    <div class="carouselItem item1 show">
+                        <img src="./assets/img1.jpg" alt="" style="width: 100%;">
+                    </div>
+                    <div class="carouselItem item2 hide">
+                        <img src="./assets/img2.jpg" alt="" style="width: 100%;">
+                    </div>
+                    <div class="carouselItem item3 hide">
+                        <img src="./assets/img3.png" alt="" style="width: 100%;">
+                    </div>
+                    <button class="next" id="next">></button>
+        </div>
+        <div style="text-align: center; margin: 10px;">
+            <div class="indicator active"></div>
+            <div class="indicator"></div>
+            <div class="indicator"></div>
+        </div>
+    </div>
     <div class="cards">
         <div class="card">🟡💡 Some Cool Animation</div>
         <div class="card">🪐🪇 Some Cool Animation</div>
@@ -103,31 +124,24 @@
         <div class="card">🟡💡 Some Cool Animation</div>
         <div class="card">🪐🪇 Some Cool Animation</div>
     </div>
-    <div class="myCarousel">
-        <button class="prev" id="prev"><</button>
-        <div class="carouselItem item1 show">
-            <img src="./assets/img1.jpg" alt="" style="width: 100%;">
-        </div>
-        <div class="carouselItem item2 hide">
-            <img src="./assets/img2.jpg" alt="" style="width: 100%;">
-        </div>
-        <div class="carouselItem item3 hide">
-            <img src="./assets/img3.png" alt="" style="width: 100%;">
-        </div>
-        <button class="next" id="next">></button>
-    </div>
-    <div style="text-align: center; margin: 10px;">
-        <div class="indicator active"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-    </div>
+    <pre>
+
+
+
+
+
+
+
+
+        
+    </pre>
     <script>
         let currentIndex = 0;
         const items = document.querySelectorAll('.carouselItem');
         const slider = document.getElementsByClassName('myCarousel');
         const nextBtn = document.getElementById('next');
-        const indicators = document.querySelectorAll('.indicator'); 
-        function showSlide (index) {
+        const indicators = document.querySelectorAll('.indicator');
+        function showSlide(index) {
             items.forEach(item => item.classList.add('hide'));
             items.forEach(item => item.classList.remove('show'));
             items[index].classList.add('show');
@@ -136,20 +150,20 @@
             indicators[index].classList.add('active');
         }
         document.getElementById('next').onclick = () => {
-        currentIndex = (currentIndex + 1) % items.length; 
-        showSlide(currentIndex);
+            currentIndex = (currentIndex + 1) % items.length;
+            showSlide(currentIndex);
         };
         document.getElementById('prev').onclick = () => {
             currentIndex = (currentIndex - 1 + items.length) % items.length;
-        showSlide(currentIndex);
+            showSlide(currentIndex);
         };
         setInterval(() => {
-            currentIndex = (currentIndex + 1) % items.length; 
+            currentIndex = (currentIndex + 1) % items.length;
             showSlide(currentIndex);
-        },1000);
-        indicators[0].onclick = () =>  showSlide(0);
-        indicators[1].onclick = () =>  showSlide(1);
-        indicators[2].onclick = () =>  showSlide(2);
+        }, 1000);
+        indicators[0].onclick = () => showSlide(0);
+        indicators[1].onclick = () => showSlide(1);
+        indicators[2].onclick = () => showSlide(2);
     </script>
 </body>
 

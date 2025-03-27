@@ -121,6 +121,8 @@
     </pre>
     <!-- Stats Section -->
     <section class="section">
+        <h2>About</h2>
+
         <div class="stats-container">
 
             <div class="stat-box">
@@ -222,7 +224,7 @@
             const numberElement = statBox.querySelector(".stat-number");
             const target = +numberElement.getAttribute("data-target"); // + to be number
             let count = 0;
-            const increment = target / 100; // Adjust speed
+            const increment = target / 50; // Adjust speed
 
             const updateCount = setInterval(() => {
                 count += increment;
@@ -265,7 +267,8 @@
         }
 
         window.addEventListener("scroll", revealOnScroll);
-        revealOnScroll(); // Initial check in case section is already visible
+        // Initial check in case section is already visible
+        revealOnScroll(); 
     </script>
 
 </body>
