@@ -324,6 +324,8 @@ button.next:hover, button.prev:hover{
     border: 1px solid black;
 }
 
+
+
 .logo {
     font-size: 24px;
     font-weight: bold;
@@ -437,17 +439,17 @@ button.next:hover, button.prev:hover{
 .scroll_bar {
     position: fixed;
     top: 5px;
-    width: 10px;
+    width: 30%;
     height: 10px;
     border-radius: 20px;
     background-color: bisque;
     z-index: 100;
-    animation: scroll_bar 10s linear forwards;
+    animation: scroll_bar linear forwards;
     animation-timeline: scroll();
 }
 @keyframes scroll_bar {
     0% {
-        width: 10px;
+        width: 30%;
         background-color: bisque;
     }
     30% {

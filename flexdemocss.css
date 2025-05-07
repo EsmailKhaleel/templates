@@ -121,15 +121,9 @@ hr {
     .activityimage:hover {
         transform: translateY(-60px);
     }
-
-    .socialfooter:hover {
-        opacity: 1;
-    }
-
     .imagecontainer:hover .activityimage {
         transform: translateY(-60px);
     }
-
     .imagecontainer:hover .socialfooter {
         opacity: 1;
     }
