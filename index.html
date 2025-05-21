@@ -10,7 +10,6 @@
 
 <body>
     <div class="scroll_bar"></div>
-    <div class="title">Explore my templates</div>
     <nav class="navbar">
         <button class="menu-btn" onclick="toggleMenu()">☰</button>
         <ul class="nav-links">
@@ -22,17 +21,23 @@
             <!-- <li><a href="swiper.html">Swiper Js Template</a></li> -->
             <li><a href="mediaapi.html">Video API Template</a></li>
             <li><a href="moving-box.html">Moving Box</a></li>
-            <li><a href="dynamic.html">Template 2</a></li>
+            <!-- <li><a href="dynamic.html">Template 2</a></li> -->
+            <li><a href="expense_tracker_dashboard/index.html">Expense Dashboard</a></li>
         </ul>
     </nav>
-
     <script>
         function toggleMenu() {
             document.querySelector('.nav-links').classList.toggle('show');
         }
     </script>
-    <div class="spinner"></div>
-    <div class="progress"></div>
+    <div class="header">
+        <div class="spinner-forward"></div>
+        <div class="title-wrapper">
+            <div class="title">Explore my templates</div>
+            <div class="progress"></div>
+        </div>
+        <div class="spinner-reverse"></div>
+    </div>
     <div class="title">Hover The Cat</div>
     <div class="gallery_wrapper">
         <img src="./assets/img3.png"></img>
@@ -94,17 +99,17 @@
     </div>
     <div class="zoom">
         <div class="myCarousel">
-            <button class="prev" id="prev"><</button>
-                    <div class="carouselItem item1 show">
-                        <img src="./assets/img1.jpg" alt="" style="width: 100%;">
-                    </div>
-                    <div class="carouselItem item2 hide">
-                        <img src="./assets/img2.jpg" alt="" style="width: 100%;">
-                    </div>
-                    <div class="carouselItem item3 hide">
-                        <img src="./assets/img3.png" alt="" style="width: 100%;">
-                    </div>
-                    <button class="next" id="next">></button>
+            <button class="prev" id="prev">&lt;</button>
+            <div class="carouselItem item1 show">
+                <img src="./assets/img1.jpg" alt="" style="width: 100%;">
+            </div>
+            <div class="carouselItem item2 hide">
+                <img src="./assets/img2.jpg" alt="" style="width: 100%;">
+            </div>
+            <div class="carouselItem item3 hide">
+                <img src="./assets/img3.png" alt="" style="width: 100%;">
+            </div>
+            <button class="next" id="next">&gt;</button>
         </div>
         <div style="text-align: center; margin: 10px;">
             <div class="indicator active"></div>
@@ -124,17 +129,50 @@
         <div class="card">🟡💡 Some Cool Animation</div>
         <div class="card">🪐🪇 Some Cool Animation</div>
     </div>
-    <pre>
 
+    <section class="features-section">
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3 class="feature-title">Creative Design</h3>
+                <p class="feature-description">Modern and innovative designs that capture attention and engage users.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3 class="feature-title">Responsive Layout</h3>
+                <p class="feature-description">Perfectly adapts to any screen size for the best user experience.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Fast Performance</h3>
+                <p class="feature-description">Optimized code for quick loading and smooth interactions.</p>
+            </div>
+        </div>
+    </section>
 
+    <section class="contact-section">
+        <div class="contact-form">
+            <div class="form-group">
+                <input type="text" id="name" placeholder=" ">
+                <label for="name">Your Name</label>
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" placeholder=" ">
+                <label for="email">Your Email</label>
+            </div>
+            <div class="form-group">
+                <textarea id="message" rows="4" placeholder=" "></textarea>
+                <label for="message">Your Message</label>
+            </div>
+            <button class="submit-btn">Send Message</button>
+        </div>
+    </section>
 
+    <footer class="footer">
+        <p>© 2025 Esmail Khaleel Templates. All rights reserved.</p>
+    </footer>
 
-
-
-
-
-        
-    </pre>
     <script>
         let currentIndex = 0;
         const items = document.querySelectorAll('.carouselItem');

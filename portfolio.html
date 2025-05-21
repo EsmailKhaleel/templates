@@ -4,74 +4,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Potfolio</title>
+    <title>Portfolio</title>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             margin: 0;
             display: grid;
             grid-template-rows: 1fr;
-            grid-template-columns: 1fr 5fr;
-            width:  100%;
-            height: 100vh;
+            grid-template-columns: 1fr;
+            width: 100%;
+            min-height: 100vh;
             font-family: tahoma;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
         #aside {
-            grid-row: 1/2;
-            grid-column: 1/2;
-            padding-left: 20px;
+            padding: 1rem;
             display: flex;
             flex-direction: column;
-            justify-content: space-around;
+            gap: 2rem;
+            background-color: #f5f5f5;
         }
+
         #mainwrapper {
-            grid-row: 1/2;
-            grid-column: 2/7;
             display: flex;
             flex-direction: column;
         }
+
         #navbar {
             background-color: burlywood;
+            padding: 0.5rem;
         }
+
         #gallery {
             flex-grow: 1;
             display: grid;
-            grid-template-columns: repeat(4,1fr);
-            /* grid-auto-rows:1fr; */
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            padding: 0.5rem;
         }
-        #navlist{
+
+        #navlist {
             list-style: none;
             display: flex;
-            gap: 5vw;
+            flex-wrap: wrap;
+            gap: 1rem;
             color: white;
+            padding: 0;
+            justify-content: center;
         }
-        #navlist>li{
-            padding: 4px 10px;
+
+        #navlist>li {
+            padding: 0.5rem 1rem;
+            white-space: nowrap;
         }
-        #navlist>li:hover{
+
+        #navlist>li:hover {
             background-color: rgba(128, 128, 128, 0.244);
             border-radius: 5px;
             cursor: pointer;
         }
-        section#gallery img{
+
+        section#gallery img {
             width: 100%;
             height: 100%;
+            object-fit: cover;
+            aspect-ratio: 1;
         }
-        #bigword{
+
+        #bigword {
             color: rgb(63, 62, 62);
-            font: 1000 7rem arial;
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 900;
+            font-family: arial;
         }
-        .bold{
+
+        .bold {
             font-weight: bold;
             color: black;
         }
-        .grayword{
-            color: gray;
 
+        .grayword {
+            color: gray;
         }
-        .smallimg{
+
+        .smallimg {
             height: 30px;
+            width: auto;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        /* Tablet and larger screens */
+        @media screen and (min-width: 768px) {
+            body {
+                grid-template-columns: 1fr 3fr;
+            }
+
+            #gallery {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            #aside {
+                grid-row: 1/2;
+                grid-column: 1/2;
+                position: sticky;
+                top: 0;
+                height: 100vh;
+            }
+
+            #mainwrapper {
+                grid-row: 1/2;
+                grid-column: 2/3;
+            }
+        }
+
+        /* Desktop screens */
+        @media screen and (min-width: 1024px) {
+            body {
+                grid-template-columns: 1fr 4fr;
+            }
+
+            #gallery {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            #navlist {
+                justify-content: flex-start;
+                padding-left: 2rem;
+            }
+
+            section#gallery img {
+                aspect-ratio: 5;  
+            }
         }
     </style>
 </head>
@@ -86,21 +160,25 @@
             <div class="bold grayword">Blog</div>
             <div class="bold grayword">Buy This Theme</div>
         </section>
-        <div>
-            <img src="./images0/twitter.png" alt="" class="smallimg">
-            <img src="./images0/linkedin.png" alt="" class="smallimg">
-            <img src="./images0/gmail.png" alt="" class="smallimg">
+        <div class="social-icons">
+            <img src="./images0/twitter.png" alt="Twitter" class="smallimg">
+            <img src="./images0/linkedin.png" alt="LinkedIn" class="smallimg">
+            <img src="./images0/gmail.png" alt="Gmail" class="smallimg">
         </div>
-        <div class="bold">A Text Widget</div>
-        <div class="bold grayword">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div><br>
-        <div >
-            <div class="bold">Flicker</div><br>
-            <img src="./images0/5.jpg" alt="" class="smallimg">
-            <img src="./images0/6.jpg" alt="" class="smallimg">
-            <img src="./images0/2.jpg" alt="" class="smallimg">
-            <img src="./images0/2.jpg" alt="" class="smallimg">
-            <img src="./images0/3.jpg" alt="" class="smallimg">
-            <img src="./images0/p3.jpg" alt="" class="smallimg">
+        <div>
+            <div class="bold">A Text Widget</div>
+            <div class="bold grayword">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
+        </div>
+        <div>
+            <div class="bold">Flicker</div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-top: 1rem;">
+                <img src="./images0/5.jpg" alt="" class="smallimg">
+                <img src="./images0/6.jpg" alt="" class="smallimg">
+                <img src="./images0/2.jpg" alt="" class="smallimg">
+                <img src="./images0/2.jpg" alt="" class="smallimg">
+                <img src="./images0/3.jpg" alt="" class="smallimg">
+                <img src="./images0/p3.jpg" alt="" class="smallimg">
+            </div>
         </div>
     </section>
 

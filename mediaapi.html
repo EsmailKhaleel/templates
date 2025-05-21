@@ -2,74 +2,260 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Enhanced Video Player</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
         section {
-            border: 1px solid black;
-            padding: 5px;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         #mainwrapper {
-            width: 90vw;
-            height: 80vh;
-            margin: 10px auto;
+            width: 95vw;
+            height: 90vh;
+            margin: 20px auto;
             display: flex;
+            gap: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-            #mainwrapper > section {
-                width: 200px;
-                margin: 20px;
-            }
+        #mainwrapper > section {
+            width: 250px;
+            margin: 0;
+        }
 
         #videowrapper {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             flex-grow: 1;
+            position: relative;
+            background-color: #000;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        #controlswrapper {
+            overflow: auto;
+        }
+
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
         details {
-            padding: 5px;
-            margin: 5px 0;
-            font-weight: bold;
+            padding: 10px;
+            margin: 10px 0;
+            font-weight: 500;
+            background-color: #fff;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #ddd;
         }
 
-            details:nth-child(odd) {
-                background-color: lightyellow;
-            }
-
-            details:nth-child(even) {
-                background-color: lightblue;
-            }
-
-        input[type=button] {
-            width: 70px;
+        details:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-            input[type=button]:focus {
-                font-weight: bold;
-                background-color: lightpink;
-            }
+        details[open] summary {
+            margin-bottom: 10px;
+            border-bottom: 1px solid #cfcfcf;
+            padding-bottom: 5px;
+        }
 
         summary {
+            cursor: pointer;
             margin-bottom: 5px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        input[type=button] {
+            width: auto;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type=button]:hover {
+            background-color: #2980b9;
+        }
+
+        input[type=button]:focus {
+            font-weight: bold;
+            background-color: #2980b9;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.3);
+        }
+
+        select, input[type=range] {
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 5px 0;
+        }
+
+        select {
+            background-color: white;
+        }
+
+        .time-display {
+            color: white;
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .video-title {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .error-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(231, 76, 60, 0.9);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 4px;
+            display: none;
         }
     </style>
     <script>
+        let myvideo;
         window.addEventListener('load', function () {
             myvideo = document.getElementById('myvideo');
             const seekbar = document.querySelector('#seekbar');
+            const loadingSpinner = document.querySelector('.loading');
+            const timeDisplay = document.querySelector('.time-display');
+            const errorMessage = document.querySelector('.error-message');
 
-            // to prevent default browser if auto-display captions
+            // to prevent default browser auto-display captions
             for (let i = 0; i < myvideo.textTracks.length; i++) {
                 myvideo.textTracks[i].mode = "hidden";
             }
             
+            // Add loading indicator
+            myvideo.addEventListener('loadstart', () => {
+                loadingSpinner.style.display = 'block';
+            });
+
+            myvideo.addEventListener('canplay', () => {
+                loadingSpinner.style.display = 'none';
+            });
+
+            // Error handling
+            myvideo.addEventListener('error', () => {
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = 'Error: Failed to load video';
+                loadingSpinner.style.display = 'none';
+            });
+
+            // Time update handling
             myvideo.addEventListener('timeupdate', function () {
-            const progress = (myvideo.currentTime / myvideo.duration) * 100;
-            seekbar.value = progress;
+                const progress = (myvideo.currentTime / myvideo.duration) * 100;
+                seekbar.value = progress;
+                
+                // Update time display
+                const currentTime = formatTime(myvideo.currentTime);
+                const duration = formatTime(myvideo.duration);
+                timeDisplay.textContent = `${currentTime} / ${duration}`;
+            });
+
+            // Keyboard controls
+            document.addEventListener('keydown', function(e) {
+                switch(e.key) {
+                    case ' ':
+                        e.preventDefault();
+                        playpausefun({ target: document.querySelector('input[type=button]') });
+                        break;
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        myvideo.currentTime += 10;
+                        break;
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        myvideo.currentTime -= 10;
+                        break;
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        myvideo.volume = Math.min(1, myvideo.volume + 0.1);
+                        document.querySelector('input[type=range]').value = myvideo.volume;
+                        break;
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        myvideo.volume = Math.max(0, myvideo.volume - 0.1);
+                        document.querySelector('input[type=range]').value = myvideo.volume;
+                        break;
+                    case 'f':
+                        e.preventDefault();
+                        if (document.fullscreenElement) {
+                            document.exitFullscreen();
+                        } else {
+                            myvideo.requestFullscreen();
+                        }
+                        break;
+                }
             });
         });//end of load
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            seconds = Math.floor(seconds % 60);
+            return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
         function playpausefun(e) {
             if (myvideo.paused) {
                 myvideo.play();
@@ -83,13 +269,20 @@
         function changemediasize(e) {
             switch (e.target.value) {
                 case "small":
-                    myvideo.width = myvideo.height = 400;
+                    myvideo.style.width = "300px";
+                    myvideo.style.height = "200px";
                     break;
                 case "medium":
-                    myvideo.width = myvideo.height = 500;
+                    myvideo.style.width = "500px";
+                    myvideo.style.height = "400px";
                     break;
                 case "large":
-                    myvideo.width = myvideo.height = 600;
+                    myvideo.style.width = "800px";
+                    myvideo.style.height = "600px";
+                    break;
+                case "original":
+                    myvideo.style.width = "100%";
+                    myvideo.style.height = "100%";
                     break;
                 case "fullscreen":
                     myvideo.requestFullscreen();
@@ -100,19 +293,9 @@
             myvideo.volume = e.target.value;
         }
         function mutefun() {
-            //if (myvideo.muted) {
-            //    myvideo.muted = false;
-            //} else {
-            //    myvideo.muted = true;
-            //}
             myvideo.muted ^= true;
         }
         function loopfun() {
-            //if (myvideo.loop) {
-            //    myvideo.loop = false;
-            //} else {
-            //    myvideo.loop = true;
-            //}
             myvideo.loop ^= true;
         }
         function changeseekbarfun(e) {
@@ -127,10 +310,8 @@
             if (myvideo.playbackRate <= 0.2) {
                 myvideo.playbackRate = 0.1;
             }
-            // console.log(myvideo.playbackRate);
         }
         function changecaptions(e){
-            // console.log(e.target.value);
             switch(e.target.value){
                 case "english":
                     myvideo.textTracks[0].mode = "showing";
@@ -148,7 +329,7 @@
 <body>
     <section id="mainwrapper">
         <section id="controlswrapper">
-            <details>
+            <details open>
                 <summary>Play | Pause</summary>
                 <input type="button" value="Play" onclick="playpausefun(event);" />
             </details>
@@ -159,6 +340,7 @@
                     <option value="small">Small</option>
                     <option value="medium">Medium</option>
                     <option value="large">Large</option>
+                    <option value="original">Original</option>
                     <option value="fullscreen">FullScreen</option>
                 </select>
             </details>
@@ -191,15 +373,18 @@
             </details>
         </section>
         <section id="videowrapper">
-            <!-- <video src="Video/universe.mp4"  id="myvideo" width="400" height="400"/> -->
+            <div class="video-title">Sintel - Blender Animation Studio</div>
+            <div class="loading"></div>
+            <div class="error-message"></div>
+            <div class="time-display">00:00 / 00:00</div>
             <video id="myvideo" preload="metadata" width="100%" height="100%">
                 <source src="video/sintel-short.mp4" type="video/mp4">
                 <source src="video/sintel-short.webm" type="video/webm">
                 <track label="English" kind="subtitles" srclang="en" src="subtitles/vtt/sintel-en.vtt" default>
                 <track label="Deutsch" kind="subtitles" srclang="de" src="subtitles/vtt/sintel-de.vtt">
                 <track label="Español" kind="subtitles" srclang="es" src="subtitles/vtt/sintel-es.vtt">
+                <p>Your browser doesn't support HTML5 video. Here is a <a href="video/sintel-short.mp4">link to the video</a> instead.</p>
             </video>
-            <!-- <audio src="Audio/lifeforrent.mp3" id="myvideo" > -->
         </section>
     </section>
 </body>
