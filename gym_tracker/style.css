@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+body {
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.gradient-bg {
+    background: linear-gradient(135deg, #3B82F6 0%, #10B981 100%);
+}
+
+.exercise-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.chart-container {
+    height: 300px;
+}
+
+.toggle-checkbox:checked {
+    right: 0;
+    border-color: #10B981;
+}
+
+.toggle-checkbox:checked + .toggle-label {
+    background-color: #10B981;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #F3F4F6;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3B82F6;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2563EB;
+}
+
+/* Base styles */
+:root {
+    --primary: #3B82F6;
+    --secondary: #10B981;
+    --accent: #F59E0B;
+    --dark: #1F2937;
+    --light: #F3F4F6;
+}
+
+/* Animation classes */
+.animate-fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: opacity, transform;
+}
+
+.animate-fade-up.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Additional animation classes */
+.animate-fade-in {
+    opacity: 0;
+    transition: opacity 0.6s ease-out;
+    will-change: opacity;
+}
+
+.animate-fade-in.animate-in {
+    opacity: 1;
+}
+
+.animate-slide-in-left {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: opacity, transform;
+}
+
+.animate-slide-in-left.animate-in {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.animate-slide-in-right {
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: opacity, transform;
+}
+
+.animate-slide-in-right.animate-in {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Scale animation */
+.animate-scale {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: opacity, transform;
+}
+
+.animate-scale.animate-in {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Staggered animation delays for cards */
+.feature-card:nth-child(1) { transition-delay: 0.1s; }
+.feature-card:nth-child(2) { transition-delay: 0.2s; }
+.feature-card:nth-child(3) { transition-delay: 0.3s; }
+.feature-card:nth-child(4) { transition-delay: 0.4s; }
+.feature-card:nth-child(5) { transition-delay: 0.5s; }
+.feature-card:nth-child(6) { transition-delay: 0.6s; }
+
+.exercise-card:nth-child(1) { transition-delay: 0.1s; }
+.exercise-card:nth-child(2) { transition-delay: 0.2s; }
+.exercise-card:nth-child(3) { transition-delay: 0.3s; }
+
+.pricing-card:nth-child(1) { transition-delay: 0.1s; }
+.pricing-card:nth-child(2) { transition-delay: 0.2s; }
+.pricing-card:nth-child(3) { transition-delay: 0.3s; }
+
+.testimonial-card:nth-child(1) { transition-delay: 0.1s; }
+.testimonial-card:nth-child(2) { transition-delay: 0.2s; }
+.testimonial-card:nth-child(3) { transition-delay: 0.3s; }
+
+/* Utility classes for animation */
+.animate-delay-100 { transition-delay: 0.1s; }
+.animate-delay-200 { transition-delay: 0.2s; }
+.animate-delay-300 { transition-delay: 0.3s; }
+.animate-delay-400 { transition-delay: 0.4s; }
+.animate-delay-500 { transition-delay: 0.5s; }
+.animate-delay-600 { transition-delay: 0.6s; }
+
+/* Dashboard specific animations */
+.dashboard-content {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+.dashboard-content.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Dashboard stats cards animation */
+.stats-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    will-change: opacity, transform;
+}
+
+.stats-card.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Dashboard chart animations */
+.chart-container {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    will-change: opacity, transform;
+}
+
+.chart-container.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Dashboard table row animations */
+.dashboard-table-row {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    will-change: opacity, transform;
+}
+
+.dashboard-table-row.animate-in {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Dashboard progress bar animations */
+.progress-bar-container {
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    will-change: opacity, transform;
+}
+
+.progress-bar-container.animate-in {
+    opacity: 1;
+    transform: scaleX(1);
+}
+
+/* Dashboard calendar day animations */
+.calendar-day {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    will-change: opacity, transform;
+}
+
+.calendar-day.animate-in {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Staggered animations for dashboard elements */
+.dashboard-table-row:nth-child(1) { transition-delay: 0.1s; }
+.dashboard-table-row:nth-child(2) { transition-delay: 0.2s; }
+.dashboard-table-row:nth-child(3) { transition-delay: 0.3s; }
+
+.calendar-day:nth-child(1) { transition-delay: 0.1s; }
+.calendar-day:nth-child(2) { transition-delay: 0.2s; }
+.calendar-day:nth-child(3) { transition-delay: 0.3s; }
+.calendar-day:nth-child(4) { transition-delay: 0.4s; }
+.calendar-day:nth-child(5) { transition-delay: 0.5s; }
+.calendar-day:nth-child(6) { transition-delay: 0.6s; }
+.calendar-day:nth-child(7) { transition-delay: 0.7s; }

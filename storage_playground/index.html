@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Storage Playground</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="app-header">
+            <h1>Web Storage Playground</h1>
+        </header>
+
+        <main class="main-grid">
+            <!-- Cookies Section -->
+            <section class="storage-section">
+                <div class="section-header">
+                    <span class="section-icon">🍪</span>
+                    <h2>Cookies</h2>
+                </div>
+                
+                <div class="form-grid">
+                    <input id="cookieName" placeholder="Name" class="input-field" />
+                    <input id="cookieValue" placeholder="Value" class="input-field" />
+                    <input id="cookieDays" type="number" placeholder="Days" class="input-field" />
+                    <select id="cookieSameSite" class="input-field">
+                        <option value="">SameSite: None</option>
+                        <option value="Lax">Lax</option>
+                        <option value="Strict">Strict</option>
+                    </select>
+                </div>
+
+                <div class="checkbox-row">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="cookieSecure">
+                        <span>Secure</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="useMaxAge">
+                        <span>Use Max-Age</span>
+                    </label>
+                </div>
+
+                <input id="cookieMaxAge" type="number" placeholder="Max-Age (seconds)" class="input-field full-width" />
+
+                <div class="button-group">
+                    <button onclick="setCookieFromUI()" class="btn btn-primary">Set Cookie</button>
+                    <button onclick="showAllCookies()" class="btn btn-secondary">Show All</button>
+                </div>
+
+                <div class="form-row">
+                    <input id="getCookieName" placeholder="Get cookie by name" class="input-field" />
+                    <button onclick="getCookieFromUI()" class="btn btn-secondary">Get</button>
+                </div>
+
+                <div class="form-row">
+                    <input id="deleteCookieName" placeholder="Delete cookie by name" class="input-field" />
+                    <button onclick="deleteCookieFromUI()" class="btn btn-danger">Delete</button>
+                </div>
+
+                <div id="getCookieResult" class="result-text"></div>
+                <pre id="cookieDisplay" class="display-area"></pre>
+            </section>
+
+            <!-- LocalStorage Section -->
+            <section class="storage-section">
+                <div class="section-header">
+                    <span class="section-icon">💾</span>
+                    <h2>LocalStorage</h2>
+                </div>
+                
+                <div class="form-row">
+                    <input id="localKey" placeholder="Key" class="input-field" />
+                    <input id="localValue" placeholder="Value" class="input-field" />
+                </div>
+
+                <div class="button-group">
+                    <button onclick="setLocal()" class="btn btn-primary">Set</button>
+                    <button onclick="getLocal()" class="btn btn-secondary">Get</button>
+                    <button onclick="removeLocal()" class="btn btn-danger">Remove</button>
+                    <button onclick="clearLocal()" class="btn btn-danger">Clear All</button>
+                </div>
+
+                <pre id="localDisplay" class="display-area"></pre>
+            </section>
+
+            <!-- SessionStorage Section -->
+            <section class="storage-section">
+                <div class="section-header">
+                    <span class="section-icon">🗂️</span>
+                    <h2>SessionStorage</h2>
+                </div>
+                
+                <div class="form-row">
+                    <input id="sessionKey" placeholder="Key" class="input-field" />
+                    <input id="sessionValue" placeholder="Value" class="input-field" />
+                </div>
+
+                <div class="button-group">
+                    <button onclick="setSession()" class="btn btn-primary">Set</button>
+                    <button onclick="getSession()" class="btn btn-secondary">Get</button>
+                    <button onclick="removeSession()" class="btn btn-danger">Remove</button>
+                    <button onclick="clearSession()" class="btn btn-danger">Clear All</button>
+                </div>
+
+                <pre id="sessionDisplay" class="display-area"></pre>
+            </section>
+
+            <!-- IndexedDB Section -->
+            <section class="storage-section">
+                <div class="section-header">
+                    <span class="section-icon">🧠</span>
+                    <h2>IndexedDB</h2>
+                </div>
+
+                <div class="form-row">
+                    <label for="storeSelect" class="select-label">Table (Object Store):</label>
+                    <select id="storeSelect" class="input-field">
+                        <option value="users">Users</option>
+                        <option value="settings">Settings</option>
+                        <option value="logs">Logs</option>
+                    </select>
+                </div>
+                
+                <div class="form-row">
+                    <input id="idbKey" placeholder="Key or ID" class="input-field" />
+                    <input id="idbValue" placeholder="Value" class="input-field" />
+                </div>
+
+                <div class="button-group">
+                    <button onclick="addToIndexedDB()" class="btn btn-primary">Add</button>
+                    <button onclick="getFromIndexedDB()" class="btn btn-secondary">Get</button>
+                    <button onclick="deleteFromIndexedDB()" class="btn btn-danger">Delete</button>
+                    <button onclick="clearIndexedDB()" class="btn btn-danger">Clear All</button>
+                </div>
+
+                <pre id="idbDisplay" class="display-area"></pre>
+            </section>
+        </main>
+    </div>
+
+    <script src="cookies.js"></script>
+    <script src="local_storage.js"></script>
+    <script src="session_storage.js"></script>
+    <script src="indexed_db.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhotoEdit Pro - Professional Photo Editor</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-left">
+            <h1 class="app-title">PhotoEdit Pro</h1>
+            <div class="file-operations">
+                <div class="file-input-wrapper">
+                    <input type="file" id="imageInput" accept="image/*">
+                    <button class="btn" onclick="document.getElementById('imageInput').click()">
+                        📁 Open Image
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="header-controls">
+            <button class="btn btn-sm" onclick="undo()">↶ Undo</button>
+            <button class="btn btn-sm" onclick="redo()">↷ Redo</button>
+            <button class="theme-toggle" onclick="toggleTheme()"></button>
+            <button class="btn" onclick="resetAll()">🔄 Reset</button>
+            <button class="btn btn-success" onclick="downloadImage()">⬇ Export</button>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Left Sidebar - Tools -->
+        <aside class="sidebar">
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📷</div>
+                <p><strong>Drop image here</strong></p>
+                <small>or click "Open Image" above</small>
+                <small>JPG, PNG, WebP supported</small>
+            </div>
+
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('basic')">Basic</button>
+                <button class="tab" onclick="switchTab('advanced')">Advanced</button>
+                <button class="tab" onclick="switchTab('effects')">Effects</button>
+            </div>
+
+            <!-- Basic Tab -->
+            <div id="basic-tab" class="tab-content active">
+                <div class="section-title">🎨 Adjustments</div>
+
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>Exposure</span>
+                        <span id="exposure-value">0</span>
+                    </div>
+                    <input type="range" class="slider" id="exposure" min="-100" max="100" value="0">
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>Brightness</span>
+                        <span id="brightness-value">0</span>
+                    </div>
+                    <input type="range" class="slider" id="brightness" min="-100" max="100" value="0">
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>Contrast</span>
+                        <span id="contrast-value">0</span>
+                    </div>
+                    <input type="range" class="slider" id="contrast" min="-100" max="100" value="0">
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>Highlights</span>
+                        <span id="highlights-value">0</span>
+                    </div>
+                    <input type="range" class="slider" id="highlights" min="-100" max="100" value="0">
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>Shadows</span>
+                        <span id="shadows-value">0</span>
+                    </div>
+                    <input type="range" class="slider" id="shadows" min="-100" max="100" value="0">
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>Saturation</span>
+                        <span id="saturation-value">0</span>
+                    </div>
+                    <input type="range" class="slider" id="saturation" min="-100" max="100" value="0">
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>Vibrance</span>
+                        <span id="vibrance-value">0</span>
+                    </div>
+                    <input type="range" class="slider" id="vibrance" min="-100" max="100" value="0">
+                </div>
+
+                <div class="section-title">🎯 Color</div>
+
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>Temperature</span>
+                        <span id="temperature-value">0</span>
+                    </div>
+                    <input type="range" class="slider" id="temperature" min="-100" max="100" value="0">
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>Tint</span>
+                        <span id="tint-value">0</span>
+                    </div>
+                    <input type="range" class="slider" id="tint" min="-100" max="100" value="0">
+                </div>
+            </div> <!-- Advanced Tab -->
+            <div id="advanced-tab" class="tab-content">
+                <div class="section-title">🔧 Detail</div>
+
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>Sharpening</span>
+                        <span id="sharpening-value">0</span>
+                    </div>
+                    <input type="range" class="slider" id="sharpening" min="0" max="100" value="0">
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>Noise Reduction</span>
+                        <span id="noise-value">0</span>
+                    </div>
+                    <input type="range" class="slider" id="noise" min="0" max="100" value="0">
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>Clarity</span>
+                        <span id="clarity-value">0</span>
+                    </div>
+                    <input type="range" class="slider" id="clarity" min="-100" max="100" value="0">
+                </div>
+
+                <div class="section-title">🌈 HSL</div>
+
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>Hue</span>
+                        <span id="hue-value">0</span>
+                    </div>
+                    <input type="range" class="slider" id="hue" min="-180" max="180" value="0">
+                </div>
+            </div>
+
+            <!-- Effects Tab -->
+            <div id="effects-tab" class="tab-content">
+                <div class="section-title">✨ Creative Effects</div>
+
+                <div class="preset-filters">
+                    <button class="preset-btn" onclick="applyPreset('vintage')">📷 Vintage</button>
+                    <button class="preset-btn" onclick="applyPreset('bw')">⚫ B&W</button>
+                    <button class="preset-btn" onclick="applyPreset('sepia')">🟤 Sepia</button>
+                    <button class="preset-btn" onclick="applyPreset('cool')">❄️ Cool</button>
+                    <button class="preset-btn" onclick="applyPreset('warm')">🔥 Warm</button>
+                    <button class="preset-btn" onclick="applyPreset('dramatic')">⚡ Dramatic</button>
+                </div>
+
+                <div class="section-title">🎭 Artistic</div>
+
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>Vignette</span>
+                        <span id="vignette-value">0</span>
+                    </div>
+                    <input type="range" class="slider" id="vignette" min="0" max="100" value="0">
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>Grain</span>
+                        <span id="grain-value">0</span>
+                    </div>
+                    <input type="range" class="slider" id="grain" min="0" max="100" value="0">
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>Blur</span>
+                        <span id="blur-value">0</span>
+                    </div>
+                    <input type="range" class="slider" id="blur" min="0" max="100" value="0">
+                </div>
+
+                <div class="section-title">🎨 Color Grading</div>
+
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>Split Toning - Highlights</span>
+                        <span id="split-highlights-value">#ffffff</span>
+                    </div>
+                    <div class="color-picker-group">
+                        <input type="color" class="color-input" id="split-highlights" value="#ffffff">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>Split Toning - Shadows</span>
+                        <span id="split-shadows-value">#000000</span>
+                    </div>
+                    <div class="color-picker-group">
+                        <input type="color" class="color-input" id="split-shadows" value="#000000">
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Canvas Area -->
+        <main class="canvas-container">
+            <div class="canvas-placeholder" id="placeholder">
+                <div class="canvas-placeholder-icon">🖼️</div>
+                <p><strong>No image loaded</strong></p>
+                <p>Open an image to start editing</p>
+            </div>
+            <canvas id="imageCanvas"></canvas>
+
+            <div class="zoom-controls">
+                <button class="btn btn-sm" onclick="zoomOut()">🔍−</button>
+                <span id="zoomLevel">100%</span>
+                <button class="btn btn-sm" onclick="zoomIn()">🔍+</button>
+                <button class="btn btn-sm" onclick="fitToScreen()">📐</button>
+            </div>
+        </main>
+
+        <!-- Right Properties Panel -->
+        <aside class="properties-panel">
+            <div class="section-title">🔧 Transform</div>
+            <div class="transform-grid">
+                <button class="transform-btn" onclick="rotateImage(-90)">↺ -90°</button>
+                <button class="transform-btn" onclick="rotateImage(90)">↻ 90°</button>
+                <button class="transform-btn" onclick="flipImage('horizontal')">↔ Flip H</button>
+                <button class="transform-btn" onclick="flipImage('vertical')">↕ Flip V</button>
+            </div>
+
+            <div class="section-title">📊 Histogram</div>
+            <canvas class="histogram" id="histogramCanvas" width="250" height="120"></canvas>
+            <div class="section-title">ℹ️ Info</div>
+            <div style="font-size: 0.8rem; color: var(--text-secondary);">
+                <div>Size: <span id="imageSize">-</span></div>
+                <div>Format: <span id="imageFormat">-</span></div>
+                <div>Zoom: <span id="currentZoom">100%</span></div>
+            </div>
+        </aside>
+    </div>
+    </div>
+</body>
+
+</html>
