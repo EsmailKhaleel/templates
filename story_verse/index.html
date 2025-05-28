@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StoryVerse | Discover Books & Movies</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom CSS for elements Tailwind can't handle easily */
+        .hero-carousel {
+            scroll-snap-type: x mandatory;
+        }
+
+        .hero-carousel-item {
+            scroll-snap-align: start;
+        }
+
+        .rating-stars {
+            --percent: calc(var(--rating) / 10 * 100%);
+        }
+
+        .rating-stars::before {
+            content: '★★★★★';
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, #f5b301 var(--percent), #ddd var(--percent));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .spoiler-blur {
+            filter: blur(5px);
+            transition: filter 0.3s ease;
+        }
+
+        .spoiler-blur:hover {
+            filter: blur(0);
+        }
+
+        .search-suggestions {
+            max-height: 400px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900 font-sans">
+    <!-- Header/Navigation -->
+    <header class="bg-indigo-900 text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-book-open text-2xl text-yellow-300"></i>
+                <h1 class="text-2xl font-bold">Story<span class="text-yellow-300">Verse</span></h1>
+            </div>
+
+            <nav class="hidden md:flex space-x-6">
+                <a href="#" class="hover:text-yellow-300 font-medium">Home</a>
+                <a href="#" class="hover:text-yellow-300 font-medium">Books</a>
+                <a href="#" class="hover:text-yellow-300 font-medium">Movies</a>
+                <a href="#" class="hover:text-yellow-300 font-medium">Collections</a>
+                <a href="#" class="hover:text-yellow-300 font-medium">News</a>
+                <a href="#" class="hover:text-yellow-300 font-medium">Calendar</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <button class="md:hidden text-xl" id="mobile-menu-button">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a href="#" class="hidden md:block hover:text-yellow-300">
+                    <i class="fas fa-search text-xl"></i>
+                </a>
+                <a href="#" class="hidden md:block hover:text-yellow-300">
+                    <i class="fas fa-user-circle text-xl"></i>
+                </a>
+                <button
+                    class="bg-yellow-400 hover:bg-yellow-300 text-indigo-900 px-4 py-2 rounded-full font-medium hidden md:block text-nowrap">
+                    Sign In
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-indigo-800 px-4 py-3">
+            <div class="flex flex-col space-y-3">
+                <a href="#" class="hover:text-yellow-300">Home</a>
+                <a href="#" class="hover:text-yellow-300">Books</a>
+                <a href="#" class="hover:text-yellow-300">Movies</a>
+                <a href="#" class="hover:text-yellow-300">Collections</a>
+                <a href="#" class="hover:text-yellow-300">News</a>
+                <a href="#" class="hover:text-yellow-300">Calendar</a>
+                <div class="pt-2 border-t border-indigo-700">
+                    <button
+                        class="bg-yellow-400 hover:bg-yellow-300 text-indigo-900 w-full px-4 py-2 rounded-full font-medium">
+                        Sign In
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section with Carousel -->
+    <section class="relative overflow-hidden">
+        <div class="hero-carousel flex transition-transform duration-500 ease-in-out" style="transform: translateX(0);">
+            <!-- Slide 1 -->
+            <div class="hero-carousel-item w-full flex-shrink-0 relative">
+                <img src="images/1.jpg" alt="Hero 1" class="w-full h-[600px] object-cover">
+                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                    <div class="text-white text-center max-w-3xl px-4">
+                        <h1 class="text-4xl md:text-6xl font-bold mb-4">Discover Your Next Story</h1>
+                        <p class="text-xl md:text-2xl mb-8">Explore thousands of books, movies, and more</p>
+                        <button
+                            class="bg-yellow-400 hover:bg-yellow-300 text-gray-900 px-8 py-3 rounded-full font-bold text-lg transition duration-300">
+                            Start Exploring
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="hero-carousel-item w-full flex-shrink-0 relative">
+                <img src="images/2.jpg" alt="Hero 2" class="w-full h-[600px] object-cover">
+                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                    <div class="text-white text-center max-w-3xl px-4">
+                        <h1 class="text-4xl md:text-6xl font-bold mb-4">Join Our Community</h1>
+                        <p class="text-xl md:text-2xl mb-8">Connect with fellow book lovers and film enthusiasts</p>
+                        <button
+                            class="bg-yellow-400 hover:bg-yellow-300 text-gray-900 px-8 py-3 rounded-full font-bold text-lg transition duration-300">
+                            Join Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="hero-carousel-item w-full flex-shrink-0 relative">
+                <img src="images/3.png" alt="Hero 3" class="w-full h-[600px] object-cover">
+                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                    <div class="text-white text-center max-w-3xl px-4">
+                        <h1 class="text-4xl md:text-6xl font-bold mb-4">Curated Collections</h1>
+                        <p class="text-xl md:text-2xl mb-8">Find perfect recommendations based on your taste</p>
+                        <button
+                            class="bg-yellow-400 hover:bg-yellow-300 text-gray-900 px-8 py-3 rounded-full font-bold text-lg transition duration-300">
+                            View Collections
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>        <!-- Carousel Navigation -->
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20 flex space-x-3">
+            <button class="w-3 h-3 rounded-full bg-white bg-opacity-100 transition-all duration-300 carousel-dot active" data-index="0"></button>
+            <button class="w-3 h-3 rounded-full bg-white bg-opacity-50 transition-all duration-300 carousel-dot" data-index="1"></button>
+            <button class="w-3 h-3 rounded-full bg-white bg-opacity-50 transition-all duration-300 carousel-dot" data-index="2"></button>
+        </div>
+
+        <!-- Arrow Navigation -->
+        <button class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 p-2 rounded-full text-gray-900 z-20"
+            id="prev-slide">
+            <i class="fas fa-chevron-left text-xl"></i>
+        </button>
+        <button class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 p-2 rounded-full text-gray-900 z-20"
+            id="next-slide">
+            <i class="fas fa-chevron-right text-xl"></i>
+        </button>
+    </section>
+
+    <!-- Search Bar -->
+    <section class="bg-indigo-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto relative">
+                <div class="flex">
+                    <select
+                        class="bg-indigo-700 border-r border-indigo-600 rounded-l-full px-4 appearance-none focus:outline-none">
+                        <option>All</option>
+                        <option>Books</option>
+                        <option>Movies</option>
+                    </select>
+                    <input type="text" placeholder="Search for books, movies, authors, genres..."
+                        class="flex-grow px-4 py-3 text-gray-900 focus:outline-none" id="search-input">
+                    <button class="bg-yellow-400 hover:bg-yellow-300 text-indigo-900 px-6 rounded-r-full font-bold">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+
+                <!-- Search Suggestions Dropdown -->
+                <div id="search-suggestions"
+                    class="hidden absolute top-full left-0 w-full mt-1 bg-white text-gray-900 rounded-lg shadow-xl search-suggestions">
+                    <div class="p-4 border-b">
+                        <h3 class="font-bold text-sm uppercase text-gray-500 mb-2">Books</h3>
+                        <div class="flex items-center space-x-3 p-2 hover:bg-gray-100 cursor-pointer">
+                            <img src="images/4.png" alt="Book"
+                                class="w-10 h-15 object-cover">
+                            <div>
+                                <p class="font-medium">Project Hail Mary</p>
+                                <p class="text-sm text-gray-600">Andy Weir • 2021</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 p-2 hover:bg-gray-100 cursor-pointer">
+                            <img src="images/foreign_movie.png" alt="Book"
+                                class="w-10 h-15 object-cover">
+                            <div>
+                                <p class="font-medium">The Silent Patient</p>
+                                <p class="text-sm text-gray-600">Alex Michaelides • 2019</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-sm uppercase text-gray-500 mb-2">Movies</h3>
+                        <div class="flex items-center space-x-3 p-2 hover:bg-gray-100 cursor-pointer">
+                            <img src="images/portrait.png" alt="Movie"
+                                class="w-10 h-15 object-cover">
+                            <div>
+                                <p class="font-medium">Oppenheimer</p>
+                                <p class="text-sm text-gray-600">Christopher Nolan • 2023</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 p-2 hover:bg-gray-100 cursor-pointer">
+                            <img src="images/foreign_movie.png" alt="Movie"
+                                class="w-10 h-15 object-cover">
+                            <div>
+                                <p class="font-medium">Past Lives</p>
+                                <p class="text-sm text-gray-600">Celine Song • 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Latest Reviews -->
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Latest Reviews</h2>
+                <a href="#" class="text-indigo-700 hover:text-indigo-900 font-medium">View All</a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Review 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                    <div class="p-5">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <img src="images/portrait.png" alt="User"
+                                class="w-10 h-10 rounded-full">
+                            <div>
+                                <p class="font-medium">Sarah Johnson</p>
+                                <div class="rating-stars text-sm" style="--rating: 8.5;"></div>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">A Masterpiece of Science Fiction</h3>
+                        <p class="text-gray-700 mb-3 line-clamp-3">"Dune: Part Two exceeds all expectations with its
+                            breathtaking visuals and faithful adaptation of Herbert's complex world-building. The
+                            performances, especially by Timothée Chalamet and Rebecca Ferguson, are phenomenal..."</p>
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-gray-500">2 days ago</span>
+                            <div class="flex space-x-2">
+                                <button class="text-gray-500 hover:text-indigo-700">
+                                    <i class="far fa-thumbs-up"></i> 24
+                                </button>
+                                <button class="text-gray-500 hover:text-indigo-700">
+                                    <i class="far fa-comment"></i> 5
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-5 py-3 border-t flex items-center">
+                        <img src="images/foreign_movie.png" alt="Movie"
+                            class="w-10 h-15 object-cover mr-3">
+                        <div>
+                            <p class="font-medium">Dune: Part Two</p>
+                            <p class="text-sm text-gray-600">2024 • Sci-Fi</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                    <div class="p-5">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <img src="images/1.jpg" alt="User"
+                                class="w-10 h-10 rounded-full">
+                            <div>
+                                <p class="font-medium">Michael Chen</p>
+                                <div class="rating-stars text-sm" style="--rating: 9.0;"></div>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">A Thought-Provoking Journey</h3>
+                        <p class="text-gray-700 mb-3 line-clamp-3">"Klara and the Sun presents a unique perspective on
+                            artificial intelligence and what it means to be human. Ishiguro's prose is as elegant as
+                            ever, crafting a near-future world that feels both familiar and unsettlingly different..."
+                        </p>
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-gray-500">4 days ago</span>
+                            <div class="flex space-x-2">
+                                <button class="text-gray-500 hover:text-indigo-700">
+                                    <i class="far fa-thumbs-up"></i> 18
+                                </button>
+                                <button class="text-gray-500 hover:text-indigo-700">
+                                    <i class="far fa-comment"></i> 3
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-5 py-3 border-t flex items-center">
+                        <img src="images/4.png" alt="Book"
+                            class="w-10 h-15 object-cover mr-3">
+                        <div>
+                            <p class="font-medium">Klara and the Sun</p>
+                            <p class="text-sm text-gray-600">Kazuo Ishiguro • 2021</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                    <div class="p-5">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <img src="images/portrait.png" alt="User"
+                                class="w-10 h-10 rounded-full">
+                            <div>
+                                <p class="font-medium">Emma Rodriguez</p>
+                                <div class="rating-stars text-sm" style="--rating: 7.5;"></div>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Beautiful but Flawed</h3>
+                        <p class="text-gray-700 mb-3 line-clamp-3">"The Last Letter from Your Lover has stunning
+                            cinematography and strong performances, particularly by Shailene Woodley. However, the dual
+                            timeline structure feels uneven, with the modern storyline paling in comparison to the 1960s
+                            romance..."</p>
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-gray-500">1 week ago</span>
+                            <div class="flex space-x-2">
+                                <button class="text-gray-500 hover:text-indigo-700">
+                                    <i class="far fa-thumbs-up"></i> 12
+                                </button>
+                                <button class="text-gray-500 hover:text-indigo-700">
+                                    <i class="far fa-comment"></i> 7
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-5 py-3 border-t flex items-center">
+                        <img src="images/foreign_movie.png" alt="Movie"
+                            class="w-10 h-15 object-cover mr-3">
+                        <div>
+                            <p class="font-medium">The Last Letter from Your Lover</p>
+                            <p class="text-sm text-gray-600">2021 • Romance</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trending Now -->
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Trending Now</h2>
+                <div class="flex space-x-4">
+                    <button class="px-4 py-2 rounded-full bg-indigo-100 text-indigo-800 font-medium">Books</button>
+                    <button
+                        class="px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium">Movies</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <!-- Item 1 -->
+                <div
+                    class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-transform hover:-translate-y-1">
+                    <img src="images/1.jpg" alt="Book"
+                        class="w-full h-48 object-cover">
+                    <div class="p-3">
+                        <h3 class="font-medium text-sm line-clamp-2">Tomorrow, and Tomorrow, and Tomorrow</h3>
+                        <p class="text-gray-600 text-xs">Gabrielle Zevin</p>
+                        <div class="flex items-center mt-1">
+                            <div class="rating-stars text-xs" style="--rating: 8.8;"></div>
+                            <span class="text-xs ml-1">4.2k</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div
+                    class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-transform hover:-translate-y-1">
+                    <img src="images/5.png" alt="Book"
+                        class="w-full h-48 object-cover">
+                    <div class="p-3">
+                        <h3 class="font-medium text-sm line-clamp-2">The House in the Cerulean Sea</h3>
+                        <p class="text-gray-600 text-xs">T.J. Klune</p>
+                        <div class="flex items-center mt-1">
+                            <div class="rating-stars text-xs" style="--rating: 9.2;"></div>
+                            <span class="text-xs ml-1">3.8k</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div
+                    class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-transform hover:-translate-y-1">
+                    <img src="images/3.png" alt="Book"
+                        class="w-full h-48 object-cover">
+                    <div class="p-3">
+                        <h3 class="font-medium text-sm line-clamp-2">Project Hail Mary</h3>
+                        <p class="text-gray-600 text-xs">Andy Weir</p>
+                        <div class="flex items-center mt-1">
+                            <div class="rating-stars text-xs" style="--rating: 9.5;"></div>
+                            <span class="text-xs ml-1">5.1k</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div
+                    class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-transform hover:-translate-y-1">
+                    <img src="images/3.png" alt="Book"
+                        class="w-full h-48 object-cover">
+                    <div class="p-3">
+                        <h3 class="font-medium text-sm line-clamp-2">The Midnight Library</h3>
+                        <p class="text-gray-600 text-xs">Matt Haig</p>
+                        <div class="flex items-center mt-1">
+                            <div class="rating-stars text-xs" style="--rating: 8.3;"></div>
+                            <span class="text-xs ml-1">6.7k</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div
+                    class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-transform hover:-translate-y-1">
+                    <img src="images/4.png" alt="Book"
+                        class="w-full h-48 object-cover">
+                    <div class="p-3">
+                        <h3 class="font-medium text-sm line-clamp-2">Piranesi</h3>
+                        <p class="text-gray-600 text-xs">Susanna Clarke</p>
+                        <div class="flex items-center mt-1">
+                            <div class="rating-stars text-xs" style="--rating: 9.1;"></div>
+                            <span class="text-xs ml-1">3.5k</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 6 -->
+                <div
+                    class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-transform hover:-translate-y-1">
+                    <img src="images/2.jpg" alt="Book"
+                        class="w-full h-48 object-cover">
+                    <div class="p-3">
+                        <h3 class="font-medium text-sm line-clamp-2">The Invisible Life of Addie LaRue</h3>
+                        <p class="text-gray-600 text-xs">V.E. Schwab</p>
+                        <div class="flex items-center mt-1">
+                            <div class="rating-stars text-xs" style="--rating: 8.6;"></div>
+                            <span class="text-xs ml-1">4.9k</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Editor's Picks -->
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Editor's Picks</h2>
+                <a href="#" class="text-indigo-700 hover:text-indigo-900 font-medium">View All</a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Pick 1 -->
+                <div
+                    class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-transform hover:-translate-y-1">
+                    <div class="md:flex">
+                        <div class="md:w-1/3">
+                            <img src="images/foreign_movie.png" alt="Movie"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6 md:w-2/3">
+                            <span
+                                class="bg-yellow-400 text-indigo-900 px-2 py-1 rounded-full text-xs font-bold mb-2 inline-block">Top
+                                Pick</span>
+                            <h3 class="text-xl font-bold mb-2">The Power of the Dog</h3>
+                            <p class="text-gray-700 mb-4">Jane Campion's masterful western that subverts genre
+                                expectations with its slow-burn psychological tension and stunning cinematography.</p>
+                            <div class="flex items-center mb-4">
+                                <div class="rating-stars text-lg" style="--rating: 9.3;"></div>
+                                <span class="ml-2 font-medium">9.3/10</span>
+                            </div>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">Psychological</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">Western</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">Drama</span>
+                            </div>
+                            <button
+                                class="bg-indigo-700 hover:bg-indigo-800 text-white px-4 py-2 rounded-full text-sm font-medium">
+                                Read Full Review
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pick 2 -->
+                <div
+                    class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-transform hover:-translate-y-1">
+                    <div class="md:flex">
+                        <div class="md:w-1/3">
+                            <img src="images/2.jpg" alt="Book"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6 md:w-2/3">
+                            <span
+                                class="bg-green-500 text-white px-2 py-1 rounded-full text-xs font-bold mb-2 inline-block">Must
+                                Read</span>
+                            <h3 class="text-xl font-bold mb-2">The Lincoln Highway</h3>
+                            <p class="text-gray-700 mb-4">Amor Towles delivers another brilliant historical novel, this
+                                time following four boys on a cross-country journey in 1950s America.</p>
+                            <div class="flex items-center mb-4">
+                                <div class="rating-stars text-lg" style="--rating: 9.1;"></div>
+                                <span class="ml-2 font-medium">9.1/10</span>
+                            </div>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">Historical</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">Adventure</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">Coming-of-age</span>
+                            </div>
+                            <button
+                                class="bg-indigo-700 hover:bg-indigo-800 text-white px-4 py-2 rounded-full text-sm font-medium">
+                                Read Full Review
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hidden Gems -->
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Hidden Gems</h2>
+                <a href="#" class="text-indigo-700 hover:text-indigo-900 font-medium">View All</a>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Gem 1 -->
+                <div
+                    class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-transform hover:-translate-y-1">
+                    <div class="relative">
+                        <img src="images/foreign_movie.png" alt="Movie"
+                            class="w-full h-48 object-cover">
+                        <div class="absolute top-2 left-2 bg-indigo-800 text-white px-2 py-1 rounded text-xs font-bold">
+                            Underrated
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold mb-1">The Vast of Night</h3>
+                        <p class="text-gray-600 text-sm mb-2">2019 • Sci-Fi/Mystery</p>
+                        <p class="text-gray-700 text-sm line-clamp-2 mb-3">A brilliant low-budget sci-fi that proves
+                            creativity trumps budget with its clever storytelling and atmospheric tension.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="rating-stars text-sm" style="--rating: 8.7;"></div>
+                            <button class="text-indigo-700 hover:text-indigo-900 text-sm font-medium">
+                                Discover
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gem 2 -->
+                <div
+                    class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-transform hover:-translate-y-1">
+                    <div class="relative">
+                        <img src="images/3.png" alt="Book"
+                            class="w-full h-48 object-cover">
+                        <div class="absolute top-2 left-2 bg-indigo-800 text-white px-2 py-1 rounded text-xs font-bold">
+                            Hidden
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold mb-1">Piranesi</h3>
+                        <p class="text-gray-600 text-sm mb-2">Susanna Clarke • 2020</p>
+                        <p class="text-gray-700 text-sm line-clamp-2 mb-3">A mesmerizing fantasy novel that creates an
+                            entire world within the confines of a mysterious house.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="rating-stars text-sm" style="--rating: 9.1;"></div>
+                            <button class="text-indigo-700 hover:text-indigo-900 text-sm font-medium">
+                                Discover
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gem 3 -->
+                <div
+                    class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-transform hover:-translate-y-1">
+                    <div class="relative">
+                        <img src="images/portrait.png" alt="Movie"
+                            class="w-full h-48 object-cover">
+                        <div class="absolute top-2 left-2 bg-indigo-800 text-white px-2 py-1 rounded text-xs font-bold">
+                            International
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold mb-1">Portrait of a Lady on Fire</h3>
+                        <p class="text-gray-600 text-sm mb-2">2019 • Romance/Drama</p>
+                        <p class="text-gray-700 text-sm line-clamp-2 mb-3">A breathtaking French film about love and art
+                            that will leave you emotionally wrecked in the best way.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="rating-stars text-sm" style="--rating: 9.4;"></div>
+                            <button class="text-indigo-700 hover:text-indigo-900 text-sm font-medium">
+                                Discover
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gem 4 -->
+                <div
+                    class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-transform hover:-translate-y-1">
+                    <div class="relative">
+                        <img src="images/2.jpg" alt="Book"
+                            class="w-full h-48 object-cover">
+                        <div class="absolute top-2 left-2 bg-indigo-800 text-white px-2 py-1 rounded text-xs font-bold">
+                            Forgotten
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold mb-1">Stoner</h3>
+                        <p class="text-gray-600 text-sm mb-2">John Williams • 1965</p>
+                        <p class="text-gray-700 text-sm line-clamp-2 mb-3">A quiet masterpiece about an unremarkable
+                            man's life that somehow becomes one of the most moving novels ever written.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="rating-stars text-sm" style="--rating: 9.2;"></div>
+                            <button class="text-indigo-700 hover:text-indigo-900 text-sm font-medium">
+                                Discover
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mood & Theme -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-6">Explore by Mood or Theme</h2>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <!-- Mood 1 -->
+                <div
+                    class="bg-gradient-to-br from-blue-400 to-indigo-600 rounded-lg p-6 text-white hover:shadow-lg transition-transform hover:-translate-y-1 cursor-pointer">
+                    <div class="text-3xl mb-3">
+                        <i class="fas fa-laugh-beam"></i>
+                    </div>
+                    <h3 class="font-bold">Feel-Good</h3>
+                    <p class="text-sm opacity-90">Uplifting stories to brighten your day</p>
+                </div>
+
+                <!-- Mood 2 -->
+                <div
+                    class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg p-6 text-white hover:shadow-lg transition-transform hover:-translate-y-1 cursor-pointer">
+                    <div class="text-3xl mb-3">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="font-bold">Mind-Bending</h3>
+                    <p class="text-sm opacity-90">Stories that challenge your perception</p>
+                </div>
+
+                <!-- Mood 3 -->
+                <div
+                    class="bg-gradient-to-br from-red-500 to-pink-600 rounded-lg p-6 text-white hover:shadow-lg transition-transform hover:-translate-y-1 cursor-pointer">
+                    <div class="text-3xl mb-3">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="font-bold">Romantic</h3>
+                    <p class="text-sm opacity-90">Tales of love and connection</p>
+                </div>
+
+                <!-- Mood 4 -->
+                <div
+                    class="bg-gradient-to-br from-green-600 to-teal-600 rounded-lg p-6 text-white hover:shadow-lg transition-transform hover:-translate-y-1 cursor-pointer">
+                    <div class="text-3xl mb-3">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3 class="font-bold">Coming-of-Age</h3>
+                    <p class="text-sm opacity-90">Journeys of growth and discovery</p>
+                </div>
+
+                <!-- Mood 5 -->
+                <div
+                    class="bg-gradient-to-br from-purple-600 to-indigo-700 rounded-lg p-6 text-white hover:shadow-lg transition-transform hover:-translate-y-1 cursor-pointer">
+                    <div class="text-3xl mb-3">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3 class="font-bold">Magical</h3>
+                    <p class="text-sm opacity-90">Stories with a touch of wonder</p>
+                </div>
+
+                <!-- Mood 6 -->
+                <div
+                    class="bg-gradient-to-br from-yellow-500 to-orange-600 rounded-lg p-6 text-white hover:shadow-lg transition-transform hover:-translate-y-1 cursor-pointer">
+                    <div class="text-3xl mb-3">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="font-bold">Thrilling</h3>
+                    <p class="text-sm opacity-90">Edge-of-your-seat excitement</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upcoming Releases -->
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Upcoming Releases</h2>
+                <a href="#" class="text-indigo-700 hover:text-indigo-900 font-medium">View Calendar</a>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="grid grid-cols-1 md:grid-cols-3">
+                    <!-- Release 1 -->
+                    <div class="border-b md:border-b-0 md:border-r border-gray-200">
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <span
+                                    class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-bold">Movie</span>
+                                <span class="text-gray-500 text-sm">June 15, 2024</span>
+                            </div>
+                            <img src="images/foreign_movie.png" alt="Movie"
+                                class="w-full h-48 object-cover rounded mb-4">
+                            <h3 class="font-bold text-lg mb-2">Furiosa: A Mad Max Saga</h3>
+                            <p class="text-gray-700 mb-4">The origin story of renegade warrior Furiosa before she teamed
+                                up with Mad Max.</p>
+                            <div class="flex items-center space-x-2">
+                                <button
+                                    class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm font-medium">
+                                    <i class="far fa-bell"></i> Remind Me
+                                </button>
+                                <button
+                                    class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm font-medium">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Release 2 -->
+                    <div class="border-b md:border-b-0 md:border-r border-gray-200">
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <span
+                                    class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-bold">Book</span>
+                                <span class="text-gray-500 text-sm">July 9, 2024</span>
+                            </div>
+                            <img src="images/3.png" alt="Book"
+                                class="w-full h-48 object-cover rounded mb-4">
+                            <h3 class="font-bold text-lg mb-2">The Familiar</h3>
+                            <p class="text-gray-700 mb-4">From the author of Ninth House, a historical fantasy set
+                                during the Spanish Golden Age.</p>
+                            <div class="flex items-center space-x-2">
+                                <button
+                                    class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm font-medium">
+                                    <i class="far fa-bell"></i> Remind Me
+                                </button>
+                                <button
+                                    class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm font-medium">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Release 3 -->
+                    <div>
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <span
+                                    class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-bold">Movie</span>
+                                <span class="text-gray-500 text-sm">August 2, 2024</span>
+                            </div>
+                            <img src="images/1.jpg" alt="Movie"
+                                class="w-full h-48 object-cover rounded mb-4">
+                            <h3 class="font-bold text-lg mb-2">Deadpool & Wolverine</h3>
+                            <p class="text-gray-700 mb-4">The merc with a mouth meets the gruff mutant in this highly
+                                anticipated team-up.</p>
+                            <div class="flex items-center space-x-2">
+                                <button
+                                    class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm font-medium">
+                                    <i class="far fa-bell"></i> Remind Me
+                                </button>
+                                <button
+                                    class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm font-medium">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog & News -->
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Latest News & Articles</h2>
+                <a href="#" class="text-indigo-700 hover:text-indigo-900 font-medium">View All</a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Article 1 -->
+                <div
+                    class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-transform hover:-translate-y-1">
+                    <img src="images/portrait.png" alt="Article"
+                        class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <span class="text-indigo-700 text-sm font-medium">Interviews</span>
+                        <h3 class="font-bold text-xl my-2">Exclusive: Rebecca Yarros on the Success of Fourth Wing</h3>
+                        <p class="text-gray-700 mb-4 line-clamp-2">The bestselling author discusses her unexpected rise
+                            to fame, dragon lore, and what's next for the Empyrean series.</p>
+                        <div class="flex items-center justify-between text-sm text-gray-500">
+                            <span>May 15, 2024</span>
+                            <span>8 min read</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 2 -->
+                <div
+                    class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-transform hover:-translate-y-1">
+                    <img src="images/1.jpg" alt="Article"
+                        class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <span class="text-indigo-700 text-sm font-medium">Adaptations</span>
+                        <h3 class="font-bold text-xl my-2">10 Book-to-Movie Adaptations Coming in 2024</h3>
+                        <p class="text-gray-700 mb-4 line-clamp-2">From fantasy epics to intimate dramas, these are the
+                            literary adaptations we're most excited about this year.</p>
+                        <div class="flex items-center justify-between text-sm text-gray-500">
+                            <span>May 10, 2024</span>
+                            <span>12 min read</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 3 -->
+                <div
+                    class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-transform hover:-translate-y-1">
+                    <img src="images/2.jpg" alt="Article"
+                        class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <span class="text-indigo-700 text-sm font-medium">Recommendations</span>
+                        <h3 class="font-bold text-xl my-2">The Best Beach Reads for Summer 2024</h3>
+                        <p class="text-gray-700 mb-4 line-clamp-2">Whether you want romance, thriller, or literary
+                            fiction, we've got the perfect books for your vacation bag.</p>
+                        <div class="flex items-center justify-between text-sm text-gray-500">
+                            <span>May 5, 2024</span>
+                            <span>6 min read</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <!-- Column 1 -->
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-book-open text-2xl text-yellow-300"></i>
+                        <h3 class="text-xl font-bold">Story<span class="text-yellow-300">Verse</span></h3>
+                    </div>
+                    <p class="text-gray-400 mb-4">Discover your next favorite book or movie. Share your passion with a
+                        community of enthusiasts.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white text-xl">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white text-xl">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white text-xl">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white text-xl">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Column 2 -->
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Explore</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Books</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Movies</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Collections</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Genres</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Moods</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3 -->
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Community</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Reviews</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Discussions</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Reading Challenges</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Events</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4 -->
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Newsletter</h4>
+                    <p class="text-gray-400 mb-4">Subscribe to get updates on new releases, recommendations, and more.
+                    </p>
+                    <div class="flex">
+                        <input type="email" placeholder="Your email"
+                            class="px-4 py-2 rounded-l-full w-full text-gray-900 focus:outline-none">
+                        <button
+                            class="bg-yellow-400 hover:bg-yellow-300 text-indigo-900 px-4 py-2 rounded-r-full font-bold">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2024 StoryVerse. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white text-sm">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm">Terms of Service</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm">Cookies</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>    <!-- JavaScript -->
+    <script src="animations.js"></script>
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function () {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });// Hero Carousel Navigation
+        const carousel = document.querySelector('.hero-carousel');
+        const dots = document.querySelectorAll('.carousel-dot');
+        const slides = document.querySelectorAll('.hero-carousel-item');
+        const prevButton = document.getElementById('prev-slide');
+        const nextButton = document.getElementById('next-slide');
+        let currentIndex = 0;
+        let autoplayInterval;
+
+        function updateCarousel(index) {
+            currentIndex = index;            const offset = -100 * currentIndex;
+            carousel.style.transform = `translateX(${offset}%)`;
+            
+            // Update dots
+            dots.forEach((dot, i) => {
+                if (i === currentIndex) {
+                    dot.classList.remove('bg-opacity-50');
+                    dot.classList.add('bg-opacity-100');
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('bg-opacity-100');
+                    dot.classList.add('bg-opacity-50');
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % slides.length;
+            updateCarousel(currentIndex);
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            updateCarousel(currentIndex);
+        }
+
+        // Set up click handlers for dots
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => updateCarousel(index));
+        });
+
+        // Set up click handlers for arrows
+        prevButton.addEventListener('click', prevSlide);
+        nextButton.addEventListener('click', nextSlide);
+
+        // Autoplay
+        function startAutoplay() {
+            autoplayInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+        }
+
+        function stopAutoplay() {
+            clearInterval(autoplayInterval);
+        }
+
+        // Start autoplay initially
+        startAutoplay();
+
+        // Pause autoplay on hover
+        carousel.addEventListener('mouseenter', stopAutoplay);
+        carousel.addEventListener('mouseleave', startAutoplay);
+
+        // Search Input Focus
+        const searchInput = document.getElementById('search-input');
+        const searchSuggestions = document.getElementById('search-suggestions');
+
+        searchInput.addEventListener('focus', function () {
+            searchSuggestions.classList.remove('hidden');
+        });
+
+        searchInput.addEventListener('blur', function () {
+            // Delay hiding to allow click on suggestions
+            setTimeout(() => {
+                searchSuggestions.classList.add('hidden');
+            }, 200);
+        });
+
+        // Spoiler Blur Toggle
+        document.querySelectorAll('.spoiler-blur').forEach(item => {
+            item.addEventListener('click', function () {
+                this.classList.toggle('spoiler-blur');
+            });
+        });
+    </script>
+</body>
+
+</html>
