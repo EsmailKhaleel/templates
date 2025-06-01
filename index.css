@@ -255,7 +255,7 @@ body {
 }
 
 .glow-on-hover.primary:hover:after {
-    background: #34495e;
+    background: #fff;
 }
 
 .glow-on-hover.secondary:hover:after {
@@ -263,7 +263,7 @@ body {
 }
 
 .glow-on-hover.primary:hover {
-    color: white;
+    color: #34495e;
 }
 
 .glow-on-hover.secondary:hover {
