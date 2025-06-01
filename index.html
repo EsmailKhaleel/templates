@@ -11,151 +11,210 @@
 <body>
     <div class="scroll_bar"></div>
     <nav class="navbar">
+        <div class="nav-brand">
+            <span class="logo">EK</span>
+        </div>
         <button class="menu-btn" onclick="toggleMenu()">☰</button>
         <ul class="nav-links">
-            <li><a href="flexdemo.html">Template 1</a></li>
-            <li><a href="story_verse/index.html">Story Verse</a></li>
-            <li><a href="3dGallery.html">3D Gallery</a></li>
-            <li><a href="portfolio.html">Porfolio</a></li>
-            <li><a href="sass_template.html">Sass Responsive</a></li>
-            <li><a href="carousel.html">Carousel</a></li>
-            <!-- <li><a href="swiper.html">Swiper Js Template</a></li> -->
-            <li><a href="mediaapi.html">Video API</a></li>
-            <li><a href="moving-box.html">Moving Box</a></li>
-            <!-- <li><a href="dynamic.html">Template 2</a></li> -->
-            <li><a href="expense_tracker_dashboard/index.html">Expense Dashboard</a></li>
-            <li><a href="gym_tracker/index.html">Gym Tracker</a></li>
-            <!-- habit tracker -->
-            <li><a href="habit_tracker/index.html">Habit Tracker</a></li>
+            <li><a href="#featured-projects">Templates</a></li>
+            <li><a href="#">Features</a></li>
+            <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
-    <script>
-        function toggleMenu() {
-            document.querySelector('.nav-links').classList.toggle('show');
-        }
-    </script>
-    <div class="header">
+    <header class="header">
         <div class="spinner-forward"></div>
         <div class="title-wrapper">
-            <div class="title">Explore my templates</div>
+            <h1 class="title">Web Development</h1>
+            <p class="subtitle">Exploring Creative & Interactive Web Solutions</p>
             <div class="progress"></div>
+            <div class="cta-buttons">
+                <a href="#featured-projects" class="cta-button primary glow-on-hover">View Projects</a>
+                <a href="#contact" class="cta-button secondary glow-on-hover">Contact Me</a>
+            </div>
         </div>
         <div class="spinner-reverse"></div>
-    </div>
-    <div class="title">Hover The Cat</div>
-    <div class="gallery_wrapper">
-        <img src="./assets/img3.png"></img>
-        <img src="./assets/img3.png"></img>
-        <img src="./assets/img3.png"></img>
-        <img src="./assets/img3.png"></img>
-        <img src="./assets/img3.png"></img>
-    </div>
-    <!-- <input type="checkbox" class="on_off_btn"> -->
-    <!-- <div class="email_wrapper">
-        <input type="text" id="email" placeholder=" ">
-        <label for="email">Enter Your Email</label>
-    </div> -->
+    </header>
+    <section id="featured-projects" class="projects-section">
+        <h2 class="section-title">Featured Templates</h2>
+        <div class="projects-grid">
+
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="assets/video.png" alt="Video API" style="object-fit: cover;">
+                </div>
+                <div class="project-content">
+                    <h3>Video API</h3>
+                    <p>Custom video player with advanced controls.</p>
+                    <a href="mediaapi.html" class="project-link">View Project</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="./story_verse/images/1.jpg" alt="Story Verse">
+                </div>
+                <div class="project-content">
+                    <h3>Story Verse</h3>
+                    <p>Interactive storytelling platform with dynamic content.</p>
+                    <a href="story_verse/index.html" class="project-link">View Project</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="./assets/img3.png" alt="3D Gallery">
+                </div>
+                <div class="project-content">
+                    <h3>3D Gallery</h3>
+                    <p>Interactive 3D image gallery experience.</p>
+                    <a href="3dGallery.html" class="project-link">View Project</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="./images1/2.jpg" alt="Sass Template">
+                </div>
+                <div class="project-content">
+                    <h3>Sass Responsive</h3>
+                    <p>Modern design using Sass preprocessor.</p>
+                    <a href="sass_template.html" class="project-link">View Project</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="assets/expense.png" alt="Expense Dashboard">
+                </div>
+                <div class="project-content">
+                    <h3>Expense Tracker</h3>
+                    <p>Manage and visualize your expenses.</p>
+                    <a href="expense_tracker_dashboard/index.html" class="project-link">View Project</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="./gym_tracker/images/bench-press.jpg" alt="Gym Tracker">
+                </div>
+                <div class="project-content">
+                    <h3>Gym Tracker</h3>
+                    <p>Track your workouts and fitness progress.</p>
+                    <a href="gym_tracker/index.html" class="project-link">View Project</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="assets/habit.png" alt="Habit Tracker">
+                </div>
+                <div class="project-content">
+                    <h3>Habit Tracker</h3>
+                    <p>Build and maintain positive habits.</p>
+                    <a href="habit_tracker/index.html" class="project-link">View Project</a>
+                </div>
+            </div>
+
+
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="./images1/laptop_top.jpg" alt="Template 1">
+                </div>
+                <div class="project-content">
+                    <h3>Template 1</h3>
+                    <p>Modern and responsive web template with clean design.</p>
+                    <a href="flexdemo.html" class="project-link">View Project</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="./assets/img2.jpg" alt="Moving Box">
+                </div>
+                <div class="project-content">
+                    <h3>Moving Box</h3>
+                    <p>Interactive animation showcase.</p>
+                    <a href="moving-box.html" class="project-link">View Project</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="./images0/p3.jpg" alt="Portfolio">
+                </div>
+                <div class="project-content">
+                    <h3>Portfolio Template</h3>
+                    <p>Professional portfolio showcase design.</p>
+                    <a href="portfolio.html" class="project-link">View Project</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="./assets/img1.jpg" alt="Carousel">
+                </div>
+                <div class="project-content">
+                    <h3>Carousel</h3>
+                    <p>Smooth and responsive image carousel component.</p>
+                    <a href="carousel.html" class="project-link">View Project</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
     <div class="slider">
         <div class="slide-track">
             <div class="slide">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/1.png" height="100" width="250" alt="" />
+                <img src="assets/html.png" height="100" width="100" alt="" />
             </div>
             <div class="slide">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/2.png" height="100" width="250" alt="" />
+                <img src="assets/css.png" height="100" width="100" alt="" />
             </div>
             <div class="slide">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/3.png" height="100" width="250" alt="" />
+                <img src="assets/javascript.png" height="100" width="100" alt="" />
             </div>
             <div class="slide">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/4.png" height="100" width="250" alt="" />
+                <img src="assets/reactjs.png" height="100" width="100" alt="" />
             </div>
             <div class="slide">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/5.png" height="100" width="250" alt="" />
+                <img src="assets/tailwind.png" height="100" width="100" alt="" />
             </div>
             <div class="slide">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/6.png" height="100" width="250" alt="" />
+                <img src="assets/typescript.png" height="100" width="100" alt="" />
             </div>
             <div class="slide">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/7.png" height="100" width="250" alt="" />
+                <img src="assets/figma.png" height="100" width="100" alt="" />
             </div>
             <div class="slide">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/1.png" height="100" width="250" alt="" />
+                <img src="assets/git.png" height="100" width="100" alt="" />
             </div>
             <div class="slide">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/2.png" height="100" width="250" alt="" />
+                <img src="assets/nodejs.png" height="100" width="100" alt="" />
             </div>
             <div class="slide">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/3.png" height="100" width="250" alt="" />
+                <img src="assets/javascript.png" height="100" width="100" alt="" />
             </div>
             <div class="slide">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/4.png" height="100" width="250" alt="" />
+                <img src="assets/css.png" height="100" width="100" alt="" />
             </div>
             <div class="slide">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/5.png" height="100" width="250" alt="" />
+                <img src="assets/html.png" height="100" width="100" alt="" />
             </div>
             <div class="slide">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/6.png" height="100" width="250" alt="" />
+                <img src="assets/reactjs.png" height="100" width="100" alt="" />
             </div>
             <div class="slide">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/7.png" height="100" width="250" alt="" />
+                <img src="assets/tailwind.png" height="100" width="100" alt="" />
             </div>
         </div>
-    </div>
-    <div class="zoom">
-        <div class="myCarousel">
-            <button class="prev" id="prev">&lt;</button>
-            <div class="carouselItem item1 show">
-                <img src="./assets/img1.jpg" alt="" style="width: 100%;">
-            </div>
-            <div class="carouselItem item2 hide">
-                <img src="./assets/img2.jpg" alt="" style="width: 100%;">
-            </div>
-            <div class="carouselItem item3 hide">
-                <img src="./assets/img3.png" alt="" style="width: 100%;">
-            </div>
-            <button class="next" id="next">&gt;</button>
-        </div>
-        <div style="text-align: center; margin: 10px;">
-            <div class="indicator active"></div>
-            <div class="indicator"></div>
-            <div class="indicator"></div>
-        </div>
-    </div>
-    <div class="cards">
-        <div class="card">🟡💡 Some Cool Animation</div>
-        <div class="card">🪐🪇 Some Cool Animation</div>
-        <div class="card">🟡💡 Some Cool Animation</div>
-        <div class="card">🪐🪇 Some Cool Animation</div>
-        <div class="card">🟡💡 Some Cool Animation</div>
-        <div class="card">🪐🪇 Some Cool Animation</div>
-        <div class="card">🟡💡 Some Cool Animation</div>
-        <div class="card">🪐🪇 Some Cool Animation</div>
-        <div class="card">🟡💡 Some Cool Animation</div>
-        <div class="card">🪐🪇 Some Cool Animation</div>
     </div>
 
-    <section class="features-section">
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">🎨</div>
-                <h3 class="feature-title">Creative Design</h3>
-                <p class="feature-description">Modern and innovative designs that capture attention and engage users.
-                </p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📱</div>
-                <h3 class="feature-title">Responsive Layout</h3>
-                <p class="feature-description">Perfectly adapts to any screen size for the best user experience.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3 class="feature-title">Fast Performance</h3>
-                <p class="feature-description">Optimized code for quick loading and smooth interactions.</p>
-            </div>
-        </div>
+    <section class="gallery_wrapper">
+        <img src="./images0/p3.jpg" alt="Gallery Image 1">
+        <img src="./images0/p4.jpg" alt="Gallery Image 2">
+        <img src="./images0/p5.jpg" alt="Gallery Image 3">
+        <img src="./images0/p6.jpg" alt="Gallery Image 4">
+        <img src="./images0/p7.jpg" alt="Gallery Image 5">
     </section>
 
-    <section class="contact-section">
+    <section class="contact-section" id="contact">
         <div class="contact-form">
             <div class="form-group">
                 <input type="text" id="name" placeholder=" ">
@@ -176,37 +235,6 @@
     <footer class="footer">
         <p>© 2025 Esmail Khaleel Templates. All rights reserved.</p>
     </footer>
-
-    <script>
-        let currentIndex = 0;
-        const items = document.querySelectorAll('.carouselItem');
-        const slider = document.getElementsByClassName('myCarousel');
-        const nextBtn = document.getElementById('next');
-        const indicators = document.querySelectorAll('.indicator');
-        function showSlide(index) {
-            items.forEach(item => item.classList.add('hide'));
-            items.forEach(item => item.classList.remove('show'));
-            items[index].classList.add('show');
-            items[index].classList.add('fade');
-            indicators.forEach(indicator => indicator.classList.remove('active'))
-            indicators[index].classList.add('active');
-        }
-        document.getElementById('next').onclick = () => {
-            currentIndex = (currentIndex + 1) % items.length;
-            showSlide(currentIndex);
-        };
-        document.getElementById('prev').onclick = () => {
-            currentIndex = (currentIndex - 1 + items.length) % items.length;
-            showSlide(currentIndex);
-        };
-        setInterval(() => {
-            currentIndex = (currentIndex + 1) % items.length;
-            showSlide(currentIndex);
-        }, 1000);
-        indicators[0].onclick = () => showSlide(0);
-        indicators[1].onclick = () => showSlide(1);
-        indicators[2].onclick = () => showSlide(2);
-    </script>
 </body>
 
 </html>

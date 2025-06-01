@@ -4,96 +4,612 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Interactive Animation Playground</title>
     <style>
+        :root {
+            --box-color: orange;
+            --box-size: 20;
+            --animation-duration: 4s;
+            --primary-color: #2680eb;
+            --primary-light: rgba(38, 128, 235, 0.1);
+            --text-color: #334e68;
+            --border-color: #e4e7eb;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+            font-family: Arial, sans-serif;
+            color: #334e68;
+        }
+
         #box {
-            width: 80vw;
+            width: 90vw;
             height: 80vh;
             margin: 30px auto;
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        #movingbox {
-            width: 20vw;
-            height: 20vh;
-            background-color: orange;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e4e7eb;
             position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        #movingbox {
+            width: calc(var(--box-size) * 1vw);
+            height: calc(var(--box-size) * 1vh);
+            background-color: var(--box-color);
+            position: absolute;
             top: 0;
             left: 0;
             transition: transform 1s;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
         }
-        #movingbox:hover {
-            transform: scale(1.1);
-            border: 1px solid gray;
-        }
+
         @keyframes movingbox {
+            0% {
+                top: 0;
+                left: 0;
+                background-color: var(--box-color);
+            }
+
             25% {
                 top: 0;
-                left: 75%;
-                background-color: lightgreen;
+                left: calc(100% - var(--box-size) * 1vw);
+                background-color: #4ade80;
             }
 
             50% {
-                top: 75%;
-                left: 75%;
-                background-color: lightblue;
+                top: calc(100% - var(--box-size) * 1vh);
+                left: calc(100% - var(--box-size) * 1vw);
+                background-color: #60a5fa;
             }
 
             75% {
-                top: 75%;
+                top: calc(100% - var(--box-size) * 1vh);
                 left: 0;
-                background-color: lightgoldenrodyellow;
+                background-color: #fcd34d;
+            }
+
+            100% {
+                top: 0;
+                left: 0;
+                background-color: var(--box-color);
             }
         }
+
+        @keyframes bounce {
+            0% {
+                top: 0;
+                left: 0;
+                transform: scale(1.2, 0.8);
+            }
+
+            25% {
+                top: 0;
+                left: calc(100% - var(--box-size) * 1vw);
+                transform: scale(0.8, 1.2);
+            }
+
+            50% {
+                top: calc(100% - var(--box-size) * 1vh);
+                left: calc(100% - var(--box-size) * 1vw);
+                transform: scale(1.2, 0.8);
+            }
+
+            75% {
+                top: calc(100% - var(--box-size) * 1vh);
+                left: 0;
+                transform: scale(0.8, 1.2);
+            }
+
+            100% {
+                top: 0;
+                left: 0;
+                transform: scale(1.2, 0.8);
+            }
+        }
+
+        @keyframes spiral {
+            0% {
+                top: 0;
+                left: 0;
+                transform: rotate(0deg) scale(1) translateY(0);
+            }
+
+            12.5% {
+                top: 0;
+                left: calc(50% - var(--box-size) * 0.5vw);
+                transform: rotate(135deg) scale(0.9) translateY(20px);
+            }
+
+            25% {
+                top: 0;
+                left: calc(100% - var(--box-size) * 1vw);
+                transform: rotate(270deg) scale(0.8) translateY(0);
+            }
+
+            37.5% {
+                top: calc(50% - var(--box-size) * 0.5vh);
+                left: calc(100% - var(--box-size) * 1vw);
+                transform: rotate(405deg) scale(0.7) translateY(-20px);
+            }
+
+            50% {
+                top: calc(100% - var(--box-size) * 1vh);
+                left: calc(100% - var(--box-size) * 1vw);
+                transform: rotate(540deg) scale(0.6) translateY(0);
+            }
+
+            62.5% {
+                top: calc(100% - var(--box-size) * 1vh);
+                left: calc(50% - var(--box-size) * 0.5vw);
+                transform: rotate(675deg) scale(0.7) translateY(20px);
+            }
+
+            75% {
+                top: calc(100% - var(--box-size) * 1vh);
+                left: 0;
+                transform: rotate(810deg) scale(0.8) translateY(0);
+            }
+
+            87.5% {
+                top: calc(50% - var(--box-size) * 0.5vh);
+                left: 0;
+                transform: rotate(945deg) scale(0.9) translateY(-20px);
+            }
+
+            100% {
+                top: 0;
+                left: 0;
+                transform: rotate(1080deg) scale(1) translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(1);
+                border-radius: 8px;
+            }
+
+            25% {
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(1.5) rotate(90deg);
+                border-radius: 50% 8px 50% 8px;
+            }
+
+            50% {
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(2) rotate(180deg);
+                border-radius: 50%;
+            }
+
+            75% {
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(1.5) rotate(270deg);
+                border-radius: 8px 50% 8px 50%;
+            }
+
+            100% {
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(1) rotate(360deg);
+                border-radius: 8px;
+            }
+        }
+
+        @keyframes morph {
+            0% {
+                top: 0;
+                left: 0;
+                border-radius: 8px;
+                transform: rotate(0deg) scale(1);
+                background-color: var(--box-color);
+            }
+
+            12.5% {
+                top: 0;
+                left: calc(50% - var(--box-size) * 0.5vw);
+                border-radius: 50% 0 50% 0;
+                transform: rotate(45deg) scale(1.3);
+                background-color: #4ade80;
+            }
+
+            25% {
+                top: 0;
+                left: calc(100% - var(--box-size) * 1vw);
+                border-radius: 0 50% 0 50%;
+                transform: rotate(90deg) scale(1);
+                background-color: #60a5fa;
+            }
+
+            37.5% {
+                top: calc(50% - var(--box-size) * 0.5vh);
+                left: calc(100% - var(--box-size) * 1vw);
+                border-radius: 70% 0 70% 30%;
+                transform: rotate(135deg) scale(1.3);
+                background-color: #818cf8;
+            }
+
+            50% {
+                top: calc(100% - var(--box-size) * 1vh);
+                left: calc(100% - var(--box-size) * 1vw);
+                border-radius: 50%;
+                transform: rotate(180deg) scale(1.5);
+                background-color: #fcd34d;
+            }
+
+            62.5% {
+                top: calc(100% - var(--box-size) * 1vh);
+                left: calc(50% - var(--box-size) * 0.5vw);
+                border-radius: 30% 70% 30% 70%;
+                transform: rotate(225deg) scale(1.3);
+                background-color: #f472b6;
+            }
+
+            75% {
+                top: calc(100% - var(--box-size) * 1vh);
+                left: 0;
+                border-radius: 0 50% 50% 0;
+                transform: rotate(270deg) scale(1);
+                background-color: #fb923c;
+            }
+
+            87.5% {
+                top: calc(50% - var(--box-size) * 0.5vh);
+                left: 0;
+                border-radius: 70% 30% 0 70%;
+                transform: rotate(315deg) scale(1.3);
+                background-color: #a855f7;
+            }
+
+            100% {
+                top: 0;
+                left: 0;
+                border-radius: 8px;
+                transform: rotate(360deg) scale(1);
+                background-color: var(--box-color);
+            }
+        }
+
+        .control-panel {
+            padding: 10px;
+            padding-top: 0;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 10px auto;
+            width: 80vw;
+            border: 1px solid #ede6e6;
+        }
+
         #controlwrapper {
             display: flex;
             justify-content: center;
-            gap: 3vw;
+            gap: 2vw;
+            margin-top: 10px;
         }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .setting-group {
+            display: flex;
+            flex-direction: column;
+            background: rgba(240, 244, 248, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e4e7eb;
+        }
+
+        .setting-group h3 {
+            margin-top: 0;
+            color: #2680eb;
+        }
+
         input[type="button"] {
             border: none;
-            width: 20vw;
-            height: 5vh;
-            background-color: cyan;
+            width: auto;
+            min-width: 120px;
+            padding: 10px 20px;
+            height: auto;
+            background-color: #2680eb;
+            color: white;
             font: bold 1rem arial;
-            box-shadow: 5px 5px 5px gray;
-            transition: all 0.5s;
+            border-radius: 8px;
+            box-shadow: 3px 3px 5px rgba(5, 55, 116, 0.771);
+            transition: all 0.3s;
+            cursor: pointer;
         }
+
+        input[type="range"] {
+            width: 100%;
+            margin: 10px 0;
+            height: 6px;
+            background: var(--border-color);
+            border-radius: 3px;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 0 6px var(--primary-light);
+        }
+
+        input[type="range"]::-moz-range-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 0 6px var(--primary-light);
+        }
+
+        input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            accent-color: var(--primary-color);
+        }
+
+        input[type="color"] {
+            width: 100%;
+            height: 40px;
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            padding: 2px;
+            cursor: pointer;
+            background: white;
+        }
+
+        input[type="color"]::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+
+        input[type="color"]::-webkit-color-swatch {
+            border: none;
+            border-radius: 2px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #486581;
+            font-weight: 500;
+        }
+
         input[type="button"]:active,
         input[type="button"]:focus {
             box-shadow: none;
             transform: translate(5px, 5px);
         }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: white;
+            font-size: 1rem;
+            color: #334e68;
+            cursor: pointer;
+        }
+
+        label {
+            font-weight: 600;
+            color: #334e68;
+            margin-top: 10px;
+        }
     </style>
 </head>
 
 <body>
-    <section id="mainwrapper">
+    <div class="control-panel">
+        <h1 style="text-align: center; color: #2680eb; margin-bottom: 30px;">Interactive Animation Playground</h1>
+        <div class="settings-grid">
+            <div class="setting-group">
+                <h3>Animation Settings</h3>
+                <label for="animation-type">Animation Pattern</label>
+                <select id="animation-type">
+                    <option value="movingbox">Square Pattern</option>
+                    <option value="bounce">Bounce</option>
+                    <option value="spiral">Spiral</option>
+                    <option value="pulse">Pulse</option>
+                    <option value="morph">Shape Morph</option>
+                </select>
+                <label for="animation-duration">Animation Speed</label>
+                <input type="range" id="animation-duration" min="1" max="10" value="4" step="0.5">
+                <label for="easing">Animation Easing</label>
+                <select id="easing">
+                    <option value="linear">Linear</option>
+                    <option value="ease">Ease</option>
+                    <option value="ease-in">Ease In</option>
+                    <option value="ease-out">Ease Out</option>
+                    <option value="ease-in-out">Ease In Out</option>
+                </select>
+            </div>
+            <div class="setting-group">
+                <h3>Box Properties</h3>
+                <label for="box-color">Box Color</label>
+                <input type="color" id="box-color" value="#ffa500">
+                <label for="box-size">Box Size</label>
+                <input type="range" id="box-size" min="10" max="30" value="20" step="1">
+            </div>
+            <div class="setting-group">
+                <h3>Effects</h3>
+                <label for="trail-effect">Trail Effect</label>
+                <input type="button" id="trail-effect" value="Toggle Trail">
+                <label for="blur-effect">Motion Blur</label>
+                <input type="button" id="blur-effect" value="Toggle Blur">
+            </div>
+        </div>
         <section id="controlwrapper">
-            <input type="button" value="start" id="start">
-            <input type="button" value="stop" id="stop">
-            <input type="button" value="pause" id="pause">
+            <input type="button" value="Start" id="start">
+            <input type="button" value="Stop" id="stop">
+            <input type="button" value="Pause" id="pause">
         </section>
-        <section id="box">
-            <div id="movingbox"></div>
-        </section>
+    </div>
+    <section id="box">
+        <div id="movingbox"></div>
     </section>
     <script>
-        let movingbox = document.getElementById('movingbox');
-        let start = document.getElementById('start');
-        let pause = document.getElementById('pause');
-        let stopBtn = document.getElementById('stop');
-        start.onclick = function () {
-            movingbox.style.animation = 'movingbox 4s';
-            movingbox.style["animation-iteration-count"] = 'infinite';
+        // Get all DOM elements
+        const movingbox = document.getElementById('movingbox');
+        const start = document.getElementById('start');
+        const pause = document.getElementById('pause');
+        const stopBtn = document.getElementById('stop');
+        const animationType = document.getElementById('animation-type');
+        const animationDuration = document.getElementById('animation-duration');
+        const boxColor = document.getElementById('box-color');
+        const boxSize = document.getElementById('box-size');
+        const trailEffect = document.getElementById('trail-effect');
+        const blurEffect = document.getElementById('blur-effect');
+        const touchEffect = document.getElementById('touch-effect');
+        const easingSelect = document.getElementById('easing');
+        const box = document.getElementById('box');
+
+        // Animation state
+        let isTrailEnabled = false;
+        let isBlurEnabled = false;
+        let isTouchEnabled = false;
+        let trailElements = [];
+
+        // Update CSS variables
+        function updateCSSVariable(name, value) {
+            document.documentElement.style.setProperty(name, value);
         }
+
+        // Animation controls with easing
+        start.onclick = function () {
+            const duration = animationDuration.value + 's';
+            const easing = easingSelect.value;
+            movingbox.style.animation = `${animationType.value} ${duration} ${easing}`;
+            movingbox.style["animation-iteration-count"] = 'infinite';
+            movingbox.style["animation-play-state"] = 'running';
+        }
+
         pause.onclick = function () {
             movingbox.style["animation-play-state"] = 'paused';
         }
+
         stopBtn.onclick = function () {
             movingbox.style.animation = 'none';
+            clearTrails();
+            movingbox.classList.remove('rainbow-mode');
         }
+
+        // Handle animation type changes
+        animationType.onchange = function () {
+            if (movingbox.style.animation) {
+                start.onclick();
+            }
+        }
+
+        // Handle animation speed changes
+        animationDuration.oninput = function () {
+            updateCSSVariable('--animation-duration', this.value + 's');
+            if (movingbox.style.animation) {
+                start.onclick();
+            }
+        }
+
+        // Handle easing changes
+        easingSelect.onchange = function () {
+            if (movingbox.style.animation) {
+                start.onclick();
+            }
+        }
+
+        // Handle box color changes
+        boxColor.oninput = function () {
+            updateCSSVariable('--box-color', this.value);
+        }
+
+        // Handle box size changes
+        boxSize.oninput = function () {
+            updateCSSVariable('--box-size', this.value);
+        }
+
+        // Trail effect
+        function createTrail() {
+            const trail = movingbox.cloneNode(true);
+            trail.style.position = 'absolute';
+            trail.style.left = movingbox.offsetLeft + 'px';
+            trail.style.top = movingbox.offsetTop + 'px';
+            trail.style.animation = 'none';
+            trail.style.opacity = '0.3';
+            trail.style.transition = 'opacity 1s';
+            const currentColor = getComputedStyle(movingbox).backgroundColor;
+            trail.style.backgroundColor = currentColor;
+            document.getElementById('box').appendChild(trail);
+            setTimeout(() => {
+                trail.style.opacity = '0';
+                setTimeout(() => trail.remove(), 1000);
+            }, 100);
+        }
+
+        function clearTrails() {
+            const trails = document.querySelectorAll('#box > div:not(#movingbox)');
+            trails.forEach(trail => trail.remove());
+        }
+
+        trailEffect.onclick = function () {
+            isTrailEnabled = !isTrailEnabled;
+            this.value = isTrailEnabled ? 'Disable Trail' : 'Toggle Trail';
+            if (!isTrailEnabled) {
+                clearTrails();
+            }
+        }
+
+        // Motion blur effect
+        blurEffect.onclick = function () {
+            isBlurEnabled = !isBlurEnabled;
+            this.value = isBlurEnabled ? 'Disable Blur' : 'Toggle Blur';
+            movingbox.style.filter = isBlurEnabled ? 'blur(4px)' : 'none';
+        }
+
+        // Create trails during animation
+        setInterval(() => {
+            if (isTrailEnabled && movingbox.style.animation &&
+                movingbox.style["animation-play-state"] !== 'paused') {
+                createTrail();
+            }
+        }, 50);
+
+        // Initialize default values
+        updateCSSVariable('--animation-duration', '4s');
+        updateCSSVariable('--box-color', '#ffa500');
+        updateCSSVariable('--box-size', '20');
+
     </script>
 </body>
 
