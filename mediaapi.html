@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -13,7 +14,7 @@
             --white: #fff;
             --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             --border-radius: 8px;
-            --spacing-unit: clamp(0.5rem, 2vw, 1rem);
+            --spacing-unit: clamp(0.2rem, 0.5vw, 0.7rem);
         }
 
         * {
@@ -134,18 +135,6 @@
             z-index: 2;
         }
 
-        .time-display {
-            position: absolute;
-            bottom: var(--spacing-unit);
-            left: var(--spacing-unit);
-            color: var(--white);
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: calc(var(--spacing-unit) * 0.5) var(--spacing-unit);
-            border-radius: var(--border-radius);
-            font-size: clamp(0.75rem, 1.5vw, 0.875rem);
-            z-index: 2;
-        }
-
         .loading {
             position: absolute;
             top: 50%;
@@ -174,6 +163,123 @@
             z-index: 2;
             text-align: center;
             max-width: 90%;
+        }
+
+        /* Video Controls */
+        .custom-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 3;
+        }
+
+        #videowrapper:hover .custom-controls {
+            opacity: 1;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            position: relative;
+            border-radius: 2.5px;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            width: 0%;
+            border-radius: 2.5px;
+            position: relative;
+        }
+
+        .progress-handle {
+            width: 12px;
+            height: 12px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+
+        .progress-handle:hover {
+            transform: translateY(-50%) scale(1.2);
+        }
+
+        .preview-thumbnail {
+            position: absolute;
+            bottom: 25px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 4px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .controls-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .control-button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            min-width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            transition: all 0.2s ease;
+            padding: 0 8px;
+        }
+
+        .control-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .volume-slider {
+            width: 80px;
+            height: 4px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
         }
 
         @media (max-width: 1024px) {
@@ -237,24 +343,38 @@
         }
 
         @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script>
         let myvideo;
         window.addEventListener('load', function () {
             myvideo = document.getElementById('myvideo');
             const seekbar = document.querySelector('#seekbar');
             const loadingSpinner = document.querySelector('.loading');
-            const timeDisplay = document.querySelector('.time-display');
+            const timeDisplayModern = document.querySelector('.time-display-modern');
             const errorMessage = document.querySelector('.error-message');
+            const progressBar = document.querySelector('.progress-bar');
+            const progressFill = document.querySelector('.progress-fill');
+            const playPauseBtn = document.querySelector('.play-pause');
+            const volumeBtn = document.querySelector('.volume-btn');
+            const volumeSlider = document.querySelector('.volume-slider');
+            const speedBtn = document.querySelector('.speed-btn');
+            const captionsBtn = document.querySelector('.captions-btn');
+            const fullscreenBtn = document.querySelector('.fullscreen-btn');
 
             // to prevent default browser auto-display captions
             for (let i = 0; i < myvideo.textTracks.length; i++) {
                 myvideo.textTracks[i].mode = "hidden";
             }
-            
+
             // Add loading indicator
             myvideo.addEventListener('loadstart', () => {
                 loadingSpinner.style.display = 'block';
@@ -269,22 +389,28 @@
                 errorMessage.style.display = 'block';
                 errorMessage.textContent = 'Error: Failed to load video';
                 loadingSpinner.style.display = 'none';
-            });
-
+            });            
             // Time update handling
             myvideo.addEventListener('timeupdate', function () {
                 const progress = (myvideo.currentTime / myvideo.duration) * 100;
                 seekbar.value = progress;
-                
+
+                // Update progress bar fill
+                progressFill.style.width = `${progress}%`;
+
+                // Update handle position relative to progress-bar
+                const progressHandle = progressBar.querySelector('.progress-handle');
+                progressHandle.style.left = `calc(${progress}% - 6px)`; // 6px is half the handle's width
+
                 // Update time display
                 const currentTime = formatTime(myvideo.currentTime);
                 const duration = formatTime(myvideo.duration);
-                timeDisplay.textContent = `${currentTime} / ${duration}`;
+                timeDisplayModern.textContent = `${currentTime} / ${duration}`;
             });
 
             // Keyboard controls
-            document.addEventListener('keydown', function(e) {
-                switch(e.key) {
+            document.addEventListener('keydown', function (e) {
+                switch (e.key) {
                     case ' ':
                         e.preventDefault();
                         playpausefun({ target: document.querySelector('input[type=button]') });
@@ -317,7 +443,125 @@
                         break;
                 }
             });
-        });//end of load
+
+            // controls event listeners
+            playPauseBtn.addEventListener('click', () => {
+                if (myvideo.paused) {
+                    myvideo.play();
+                    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                } else {
+                    myvideo.pause();
+                    playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                }
+            });
+
+            myvideo.addEventListener('play', () => {
+                playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            });
+
+            myvideo.addEventListener('pause', () => {
+                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+            });         
+               
+            // Progress bar functionality
+            function getProgressFromEvent(e) {
+                const rect = progressBar.getBoundingClientRect();
+                const pos = (e.clientX - rect.left) / rect.width;
+                return Math.max(0, Math.min(pos, 1));
+            }
+
+            progressBar.addEventListener('click', (e) => {
+                const pos = getProgressFromEvent(e);
+                myvideo.currentTime = pos * myvideo.duration;
+            });
+
+            let isDragging = false;
+            progressBar.addEventListener('mousedown', () => isDragging = true);
+            document.addEventListener('mouseup', () => isDragging = false);
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    const pos = getProgressFromEvent(e);
+                    myvideo.currentTime = pos * myvideo.duration;
+                }
+            });
+            // Volume control
+            volumeBtn.addEventListener('click', () => {
+                myvideo.muted = !myvideo.muted;
+                updateVolumeIcon();
+            });
+
+            volumeSlider.addEventListener('input', (e) => {
+                myvideo.volume = e.target.value;
+                updateVolumeIcon();
+            });
+
+            function updateVolumeIcon() {
+                const icon = volumeBtn.querySelector('i');
+                if (myvideo.muted || myvideo.volume === 0) {
+                    icon.className = 'fas fa-volume-mute';
+                } else if (myvideo.volume < 0.5) {
+                    icon.className = 'fas fa-volume-down';
+                } else {
+                    icon.className = 'fas fa-volume-up';
+                }
+            }            // Playback speed control
+            let currentSpeedIndex = 2; // Start at index 2 (1x speed)
+            const speeds = [0.5, 0.75, 1, 1.25, 1.5, 2];
+
+            function updateSpeedButton() {
+                speedBtn.innerHTML = `<i class="fas fa-tachometer-alt"></i><span style="font-size: 0.8em; margin-left: 2px">${speeds[currentSpeedIndex]}x</span>`;
+                speedBtn.setAttribute('title', `Playback Speed: ${speeds[currentSpeedIndex]}x`);
+            }
+
+            speedBtn.addEventListener('click', () => {
+                currentSpeedIndex = (currentSpeedIndex + 1) % speeds.length;
+                myvideo.playbackRate = speeds[currentSpeedIndex];
+                updateSpeedButton();
+            });
+
+            // Initialize speed button
+            updateSpeedButton();            // Captions control
+            let currentTrack = -1;
+            const trackLabels = ['English', 'Deutsch', 'Español'];
+
+            function updateCaptionsButton() {
+                if (currentTrack === -1) {
+                    captionsBtn.innerHTML = '<i class="fas fa-closed-captioning"></i>';
+                    captionsBtn.style.color = 'white';
+                    captionsBtn.setAttribute('title', 'Captions: Off');
+                } else {
+                    captionsBtn.innerHTML = `<i class="fas fa-closed-captioning"></i><span style="font-size: 0.8em; margin-left: 2px">${trackLabels[currentTrack]}</span>`;
+                    captionsBtn.setAttribute('title', `Captions: ${trackLabels[currentTrack]}`);
+                }
+            }
+
+            captionsBtn.addEventListener('click', () => {
+                currentTrack = (currentTrack + 1) % (myvideo.textTracks.length + 1);
+                currentTrack = currentTrack === myvideo.textTracks.length ? -1 : currentTrack;
+
+                for (let i = 0; i < myvideo.textTracks.length; i++) {
+                    myvideo.textTracks[i].mode = (i === currentTrack) ? "showing" : "hidden";
+                }
+
+                updateCaptionsButton();
+            });
+
+            // Initialize captions button
+            updateCaptionsButton();
+
+            // Fullscreen control
+            fullscreenBtn.addEventListener('click', () => {
+                if (!document.fullscreenElement) {
+                    myvideo.requestFullscreen();
+                    fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+                } else {
+                    document.exitFullscreen();
+                    fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                }
+            });
+            myvideo.volume = volumeSlider.value;
+            updateVolumeIcon();
+        });
 
         function formatTime(seconds) {
             const minutes = Math.floor(seconds / 60);
@@ -380,8 +624,8 @@
                 myvideo.playbackRate = 0.1;
             }
         }
-        function changecaptions(e){
-            switch(e.target.value){
+        function changecaptions(e) {
+            switch (e.target.value) {
                 case "english":
                     myvideo.textTracks[0].mode = "showing";
                     break;
@@ -393,8 +637,9 @@
                     break;
             }
         }
-    </script>    
+    </script>
 </head>
+
 <body>
     <section id="mainwrapper">
         <section id="controlswrapper">
@@ -424,12 +669,13 @@
             </details>
             <details>
                 <summary>SeekBar</summary>
-                <input type="range" min="0" max="100" value="0" step="any" onchange="changeseekbarfun(event);" id="seekbar"/>
+                <input type="range" min="0" max="100" value="0" step="any" onchange="changeseekbarfun(event);"
+                    id="seekbar" />
             </details>
             <details>
-                <summary> >> | <<</summary>
-                <input type="button" value=">>" onclick="forwardfun();" />
-                <input type="button" value="<<" onclick="backwordfun();" />
+                <summary> >> | << </summary>
+                        <input type="button" value=">>" onclick="forwardfun();" />
+                        <input type="button" value="<<" onclick="backwordfun();" />
             </details>
             <details>
                 <summary>&COPY;&COPY; Captions</summary>
@@ -446,15 +692,49 @@
             <div class="loading"></div>
             <div class="error-message"></div>
             <div class="time-display">00:00 / 00:00</div>
+            <div class="custom-controls">
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                    <div class="progress-handle"></div>
+                    <div class="preview-thumbnail"></div>
+                </div>
+                <div class="controls-row">
+                    <div class="control-group">
+                        <button class="control-button play-pause">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <div class="volume-control">
+                            <button class="control-button volume-btn">
+                                <i class="fas fa-volume-up"></i>
+                            </button>
+                            <input type="range" class="volume-slider" min="0" max="1" step="0.1" value="0.8">
+                        </div>
+                        <span class="time-display-modern">00:00 / 00:00</span>
+                    </div>
+                    <div class="control-group">
+                        <button class="control-button speed-btn" title="Playback Speed">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </button>
+                        <button class="control-button captions-btn" title="Captions">
+                            <i class="fas fa-closed-captioning"></i>
+                        </button>
+                        <button class="control-button fullscreen-btn" title="Fullscreen">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
             <video id="myvideo" preload="metadata" width="100%" height="100%">
                 <source src="video/sintel-short.mp4" type="video/mp4">
                 <source src="video/sintel-short.webm" type="video/webm">
                 <track label="English" kind="subtitles" srclang="en" src="subtitles/vtt/sintel-en.vtt" default>
                 <track label="Deutsch" kind="subtitles" srclang="de" src="subtitles/vtt/sintel-de.vtt">
                 <track label="Español" kind="subtitles" srclang="es" src="subtitles/vtt/sintel-es.vtt">
-                <p>Your browser doesn't support HTML5 video. Here is a <a href="video/sintel-short.mp4">link to the video</a> instead.</p>
+                <p>Your browser doesn't support HTML5 video. Here is a <a href="video/sintel-short.mp4">link to the
+                        video</a> instead.</p>
             </video>
         </section>
     </section>
 </body>
+
 </html>
