@@ -29,19 +29,28 @@
     </script>
 </head>
 
-<body class="bg-gray-100 dark:bg-dark-primary dark:text-dark-primary transition-colors duration-300">    <div class="flex h-screen overflow-hidden">
+<body class="bg-gray-100 dark:bg-dark-primary dark:text-dark-primary transition-colors duration-300">
+    <div class="flex h-screen overflow-hidden">
         <!-- Sidebar -->
         <div class="sidebar w-64 bg-white dark:bg-dark-secondary shadow-lg flex-shrink-0 h-full flex flex-col">
             <div class="p-4 border-b border-gray-200 dark:border-dark-border">
-                <div class="flex items-center space-x-3">
-                    <img src="https://ui-avatars.com/api/?name=Esmail+Khaleel&background=4f46e5&color=fff" alt="User"
-                        class="w-10 h-10 rounded-full">
-                    <div>
-                        <h3 class="font-semibold text-gray-900 dark:text-white">Esmail Khaleel</h3>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">Owner</p>
+                <div class="flex items-center justify-between w-full">
+                    <div class="flex items-center space-x-3">
+                        <img src="https://ui-avatars.com/api/?name=Esmail+Khaleel&background=4f46e5&color=fff"
+                            alt="User" class="w-10 h-10 rounded-full">
+                        <div>
+                            <h3 class="font-semibold text-gray-900 dark:text-white">Esmail Khaleel</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Owner</p>
+                        </div>
                     </div>
+                    <!-- Menu close button on small screens -->
+                    <button class="menu-close md:hidden p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
+                        aria-label="Close sidebar" aria-controls="sidebar">
+                        <i class="fas fa-times text-2xl text-gray-700 dark:text-gray-200"></i>
+                    </button>
                 </div>
-            </div>            <nav class="p-4 flex-1 overflow-y-auto">
+            </div>
+            <nav class="p-4 flex-1 overflow-y-auto">
                 <ul class="space-y-2 flex flex-col">
                     <li>
                         <a href="#"
@@ -99,12 +108,20 @@
                     </li>
                 </ul>
             </nav>
-        </div> <!-- Main Content -->
+        </div>
+        <!-- Main Content -->
         <div class="flex-1 overflow-auto" role="main">
             <!-- Header -->
             <header class="bg-white dark:bg-dark-secondary shadow-sm p-4 flex justify-between items-center"
                 role="banner">
-                <h1 class="text-2xl font-bold text-black dark:text-white">Expense Tracker Pro</h1>
+                <!-- menu button -->
+                <div class="flex items-center space-x-4">
+                    <button class="menu-toggle p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 md:hidden"
+                        aria-label="Toggle sidebar" aria-controls="sidebar">
+                        <i class="fas fa-bars text-gray-700 dark:text-gray-200"></i>
+                    </button>
+                    <h1 class="text-2xl font-bold text-black dark:text-white">Expense Tracker Pro</h1>
+                </div>
                 <div class="flex items-center space-x-4">
                     <div class="relative">
                         <button class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -116,15 +133,18 @@
                     </div>
                     <div class="dropdown relative">
                         <button class="flex items-center space-x-2">
-                            <img src="https://ui-avatars.com/api/?name=Esmail+Khaleel&background=4f46e5&color=fff" alt="User"
-                                class="w-8 h-8 rounded-full">
+                            <img src="https://ui-avatars.com/api/?name=Esmail+Khaleel&background=4f46e5&color=fff"
+                                alt="User" class="w-8 h-8 rounded-full">
                             <i class="fas fa-chevron-down text-xs text-gray-700 dark:text-gray-200"></i>
                         </button>
                         <div
                             class="dropdown-content mt-2 right-0 w-48 bg-white dark:bg-dark-secondary rounded-md shadow-lg py-1 z-10 border border-gray-200 dark:border-dark-border">
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white">Profile</a>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white">Settings</a>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white">Logout</a>
+                            <a href="#"
+                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white">Profile</a>
+                            <a href="#"
+                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white">Settings</a>
+                            <a href="#"
+                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white">Logout</a>
                         </div>
                     </div>
                 </div>
@@ -194,13 +214,18 @@
 
                 <!-- Charts Section -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6"> <!-- Monthly Spending Chart -->
-                    <div class="bg-white dark:bg-dark-secondary rounded-lg shadow p-6" data-chart-container="monthlySpending">
+                    <div class="bg-white dark:bg-dark-secondary rounded-lg shadow p-6"
+                        data-chart-container="monthlySpending">
                         <div class="flex justify-between items-center mb-4">
-                            <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Monthly Spending Overview</h2>
+                            <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Monthly Spending Overview
+                            </h2>
                             <div class="flex space-x-2">
-                                <button data-chart-period="week" class="px-3 py-1 rounded-md bg-gray-100 dark:bg-gray-700 text-sm">Week</button>
-                                <button data-chart-period="month" class="px-3 py-1 rounded-md bg-indigo-100 dark:bg-indigo-900 text-sm">Month</button>
-                                <button data-chart-period="year" class="px-3 py-1 rounded-md bg-gray-100 dark:bg-gray-700 text-sm">Year</button>
+                                <button data-chart-period="week"
+                                    class="px-3 py-1 rounded-md bg-gray-100 dark:bg-gray-700 text-sm">Week</button>
+                                <button data-chart-period="month"
+                                    class="px-3 py-1 rounded-md bg-indigo-100 dark:bg-indigo-900 text-sm">Month</button>
+                                <button data-chart-period="year"
+                                    class="px-3 py-1 rounded-md bg-gray-100 dark:bg-gray-700 text-sm">Year</button>
                             </div>
                         </div>
                         <div class="chart-container">
@@ -434,7 +459,8 @@
                     <div class="bg-white dark:bg-dark-secondary rounded-lg shadow p-6">
                         <div class="flex justify-between items-center mb-4">
                             <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Income Sources</h2>
-                            <button class="text-indigo-600 dark:text-indigo-400 text-sm hover:underline">View Details</button>
+                            <button class="text-indigo-600 dark:text-indigo-400 text-sm hover:underline">View
+                                Details</button>
                         </div>
                         <div class="chart-container" style="height: 300px;">
                             <canvas id="incomeSourcesChart"></canvas>
@@ -445,7 +471,8 @@
                     <div class="bg-white dark:bg-dark-secondary rounded-lg shadow p-6">
                         <div class="flex justify-between items-center mb-4">
                             <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Savings Goals</h2>
-                            <button class="text-indigo-600 dark:text-indigo-400 text-sm hover:underline">Edit Goals</button>
+                            <button class="text-indigo-600 dark:text-indigo-400 text-sm hover:underline">Edit
+                                Goals</button>
                         </div>
                         <div class="chart-container" style="height: 300px;">
                             <canvas id="savingsGoalsChart"></canvas>
@@ -458,7 +485,8 @@
                     <div class="flex justify-between items-center mb-4">
                         <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Financial Trends</h2>
                         <div class="flex space-x-2">
-                            <button class="px-3 py-1 rounded-md bg-indigo-100 dark:bg-indigo-900 text-sm">6 Months</button>
+                            <button class="px-3 py-1 rounded-md bg-indigo-100 dark:bg-indigo-900 text-sm">6
+                                Months</button>
                             <button class="px-3 py-1 rounded-md bg-gray-100 dark:bg-gray-700 text-sm">1 Year</button>
                         </div>
                     </div>
@@ -488,8 +516,10 @@
                     <div class="flex justify-between items-center mb-4">
                         <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Category Analysis</h2>
                         <div class="flex space-x-2">
-                            <button class="px-3 py-1 rounded-md bg-indigo-100 dark:bg-indigo-900 text-sm">By Amount</button>
-                            <button class="px-3 py-1 rounded-md bg-gray-100 dark:bg-gray-700 text-sm">By Frequency</button>
+                            <button class="px-3 py-1 rounded-md bg-indigo-100 dark:bg-indigo-900 text-sm">By
+                                Amount</button>
+                            <button class="px-3 py-1 rounded-md bg-gray-100 dark:bg-gray-700 text-sm">By
+                                Frequency</button>
                         </div>
                     </div>
                     <div class="chart-container" style="height: 400px;">
@@ -535,19 +565,19 @@
                             class="bg-purple-50 dark:bg-purple-900/30 p-4 rounded-lg border border-purple-100 dark:border-purple-800">
                             <div class="flex items-start">
                                 <div class="bg-purple-100 dark:bg-purple-800 p-2 rounded-full mr-3"></div>
-                                    <i class="fas fa-money-check text-purple-600 dark:text-purple-300"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-medium mb-1 text-gray-900 dark:text-white">Subscription Audit</h4>
-                                    <p class="text-sm text-gray-700 dark:text-gray-300">You have 3 unused subscriptions
-                                        costing $34.99/month that could be canceled.</p>
-                                </div>
+                                <i class="fas fa-money-check text-purple-600 dark:text-purple-300"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium mb-1 text-gray-900 dark:text-white">Subscription Audit</h4>
+                                <p class="text-sm text-gray-700 dark:text-gray-300">You have 3 unused subscriptions
+                                    costing $34.99/month that could be canceled.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </main>
         </div>
+        </main>
+    </div>
     </div>
 </body>
 

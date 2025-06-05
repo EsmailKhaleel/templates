@@ -26,7 +26,18 @@ class App {
         document.querySelectorAll('[data-chart-period]').forEach(button => {
             button.addEventListener('click', (e) => this.handleChartPeriodChange(e));
         });
-    }    handleChartPeriodChange(e) {
+        // Handle menu toggle for mobile view
+        document.querySelector('.menu-toggle').addEventListener('click', () => {
+            const menu = document.querySelector('.sidebar');
+            menu.classList.toggle('open');
+        });
+        // Handle close button for mobile menu
+        document.querySelector('.menu-close').addEventListener('click', () => {
+            const menu = document.querySelector('.sidebar');
+            menu.classList.remove('open');
+        });
+    }    
+    handleChartPeriodChange(e) {
         const period = e.target.dataset.chartPeriod;
         const chartId = e.target.closest('[data-chart-container]').dataset.chartContainer;
         
