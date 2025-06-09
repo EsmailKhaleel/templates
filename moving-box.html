@@ -292,9 +292,10 @@
         }
 
         #controlwrapper {
+            width: 100%;
             display: flex;
             justify-content: center;
-            gap: 2vw;
+            gap: clamp(10px, 2vw, 20px);
             margin-top: 10px;
         }
 
@@ -321,7 +322,6 @@
         input[type="button"] {
             border: none;
             width: auto;
-            min-width: 120px;
             padding: 10px 20px;
             height: auto;
             background-color: #2680eb;

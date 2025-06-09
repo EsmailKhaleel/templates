@@ -87,23 +87,55 @@ function initStrengthChart() {
 // Initialize Workout Frequency Chart
 function initFrequencyChart() {
     const frequencyCtx = document.getElementById('frequencyChart').getContext('2d');
+    const isMobile = window.innerWidth < 768;
+    
     return new Chart(frequencyCtx, {
         type: 'bar',
         data: {
             labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
             datasets: [{
-                label: 'Workouts',
-                data: [1, 0, 1, 1, 0, 1, 0],
+                label: 'This Week',
+                data: [2, 1, 2, 1, 2, 1, 0],
                 backgroundColor: 'rgba(59, 130, 246, 0.8)',
                 borderRadius: 6,
-                borderSkipped: false
+                borderSkipped: false,
+                barPercentage: isMobile ? 0.7 : 0.8,
+                categoryPercentage: isMobile ? 0.7 : 0.8
+            }, {
+                label: 'Last Week',
+                data: [1, 1, 1, 2, 1, 0, 1],
+                backgroundColor: 'rgba(16, 185, 129, 0.8)',
+                borderRadius: 6,
+                borderSkipped: false,
+                barPercentage: isMobile ? 0.7 : 0.8,
+                categoryPercentage: isMobile ? 0.7 : 0.8
             }]
         },
         options: {
             ...commonOptions,
             plugins: {
                 legend: {
-                    display: false
+                    display: true,
+                    position: isMobile ? 'bottom' : 'top',
+                    labels: {
+                        usePointStyle: true,
+                        padding: isMobile ? 10 : 15,
+                        font: {
+                            size: isMobile ? 10 : 12
+                        },
+                        boxWidth: isMobile ? 8 : 12
+                    }
+                },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false,
+                    titleFont: {
+                        size: isMobile ? 10 : 12
+                    },
+                    bodyFont: {
+                        size: isMobile ? 10 : 12
+                    },
+                    padding: isMobile ? 6 : 10
                 }
             },
             scales: {
@@ -113,18 +145,40 @@ function initFrequencyChart() {
                         color: 'rgba(0, 0, 0, 0.05)'
                     },
                     title: {
-                        display: true,
+                        display: !isMobile,
                         text: 'Number of Workouts',
                         font: {
                             size: 12,
                             weight: 'bold'
+                        }
+                    },
+                    ticks: {
+                        stepSize: 1,
+                        font: {
+                            size: isMobile ? 10 : 12
                         }
                     }
                 },
                 x: {
                     grid: {
                         display: false
+                    },
+                    ticks: {
+                        font: {
+                            size: isMobile ? 10 : 12
+                        }
                     }
+                }
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            aspectRatio: isMobile ? 1 : 2,
+            layout: {
+                padding: {
+                    left: isMobile ? 0 : 10,
+                    right: isMobile ? 0 : 10,
+                    top: isMobile ? 0 : 10,
+                    bottom: isMobile ? 0 : 10
                 }
             }
         }
